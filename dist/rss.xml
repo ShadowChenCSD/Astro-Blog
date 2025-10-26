@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>个人博客</title><description>No description</description><link>https://shadowchencsd.github.io/</link><language>zh_CN</language><item><title>博客日记使用说明</title><link>https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</link><guid isPermaLink="true">https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E6%97%A5%E8%AE%B0%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</guid><description>介绍导航栏中日记功能的使用方法。</description><pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;1. 功能说明&lt;/h1&gt;
+&lt;p&gt;​		博客提供了内置的&lt;strong&gt;日记&lt;/strong&gt;页面，用于&lt;strong&gt;分享生活瞬间&lt;/strong&gt;，类似于社交媒体的短文功能。&lt;/p&gt;
+&lt;h1&gt;2. 组织结构&lt;/h1&gt;
+&lt;p&gt;​		日记页面位于 &lt;code&gt;src/pages/diary.astro&lt;/code&gt; 文件中。&lt;/p&gt;
+&lt;p&gt;​		日记页面的核心是一个日记数据数组：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;const moments = [
+	{
+		id: 1,
+		content: &quot;The falling speed of cherry blossoms is five centimeters per second!&quot;,
+		date: &quot;2025-01-15T10:30:00Z&quot;,
+		images: [&quot;/images/diary/sakura.jpg&quot;, &quot;/images/diary/1.jpg&quot;],
+	},
+  // 更多日记...
+];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;属性说明&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;id&lt;/code&gt;：唯一标识符（数字）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content&lt;/code&gt;：日记内容（文本）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;date&lt;/code&gt;：发布日期（ISO 8601 格式）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;images&lt;/code&gt;：图片路径数组（可选，相对于 public 目录）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;3. 内容更新&lt;/h1&gt;
+&lt;p&gt;​		要&lt;strong&gt;添加&lt;/strong&gt;新的日记条目，通过向 &lt;code&gt;moments&lt;/code&gt; 数组中继续添加新的对象实现。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;更新 &lt;code&gt;id&lt;/code&gt; 为唯一值（数字递增）&lt;/li&gt;
+&lt;li&gt;更新 &lt;code&gt;content&lt;/code&gt; 为新的日记内容&lt;/li&gt;
+&lt;li&gt;设置 &lt;code&gt;date&lt;/code&gt; 为 ISO 8601 格式的日期时间&lt;/li&gt;
+&lt;li&gt;如果需要图片，则上传图片至 &lt;code&gt;public&lt;/code&gt; 中的文件夹下，再在 &lt;code&gt;images&lt;/code&gt; 数组中添加图片路径&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded></item><item><title>博客相册使用说明</title><link>https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%86%8C%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</link><guid isPermaLink="true">https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E7%9B%B8%E5%86%8C%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</guid><description>介绍导航栏中相册功能的使用方法。</description><pubDate>Fri, 10 Oct 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;1. 功能支持&lt;/h1&gt;
+&lt;p&gt;​		相册系统支持&lt;strong&gt;两种存储模式&lt;/strong&gt;和&lt;strong&gt;灵活的显示控制&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;存储模式&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本地模式&lt;/strong&gt;：图片存储在服务器本地文件系统&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;外链模式&lt;/strong&gt;：图片通过外部链接引用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;显示控制&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;自动扫描图片、生成相册&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;支持多种&lt;strong&gt;布局&lt;/strong&gt;：&lt;strong&gt;网格&lt;/strong&gt;、&lt;strong&gt;瀑布流&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;相册&lt;strong&gt;隐藏&lt;/strong&gt;控制&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;标签和元数据管理&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;2. 模式说明&lt;/h1&gt;
+&lt;h2&gt;2.1 模式对比&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;特性&lt;/th&gt;
+&lt;th&gt;本地模式&lt;/th&gt;
+&lt;th&gt;外链模式&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;图片存储&lt;/td&gt;
+&lt;td&gt;本地文件系统&lt;/td&gt;
+&lt;td&gt;外部链接&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;加载速度&lt;/td&gt;
+&lt;td&gt;快速&lt;/td&gt;
+&lt;td&gt;取决于外部服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;存储成本&lt;/td&gt;
+&lt;td&gt;占用服务器空间&lt;/td&gt;
+&lt;td&gt;无本地存储成本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;稳定性&lt;/td&gt;
+&lt;td&gt;高&lt;/td&gt;
+&lt;td&gt;取决于外部服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;配置复杂度&lt;/td&gt;
+&lt;td&gt;简单&lt;/td&gt;
+&lt;td&gt;中等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;适用场景&lt;/td&gt;
+&lt;td&gt;个人网站、小型项目&lt;/td&gt;
+&lt;td&gt;大量图片、CDN优化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;2.2 文件夹组织结构&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;public/images/albums/
+├── 相册名称1/
+│   ├── info.json          # 必需：相册配置
+│   ├── cover.jpg          # 本地模式必需：封面图
+│   ├── photo1.jpg         # 本地模式：相册图片
+│   └── photo2.png
+├── 相册名称2/
+│   └── info.json          # 外链模式只需配置文件
+└── ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2.3 基础设定&lt;/h2&gt;
+&lt;h3&gt;2.3.1 配置文件&lt;/h3&gt;
+&lt;p&gt;​		每个相册都需要一个 &lt;code&gt;info.json&lt;/code&gt; 配置文件，位于相册文件夹内。&lt;/p&gt;
+&lt;h3&gt;2.3.2 通用字段说明&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段&lt;/th&gt;
+&lt;th&gt;类型&lt;/th&gt;
+&lt;th&gt;必需&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;mode&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;模式设置，&quot;external&quot; 为外链模式，不设置为本地模式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;hidden&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;boolean&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;是否隐藏相册，true 为隐藏&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;title&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;相册标题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;description&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;相册描述&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;date&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;创建日期，格式：YYYY-MM-DD&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;location&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;拍摄地点&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;array&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;标签数组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;layout&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;布局方式：&quot;grid&quot; 或 &quot;masonry&quot;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;columns&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;列数，默认 3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;2.3.3 支持的图片格式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.jpg&lt;/code&gt; / &lt;code&gt;.jpeg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.png&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.gif&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.webp&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.svg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.avif&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.bmp&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.tiff&lt;/code&gt; / &lt;code&gt;.tif&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2.4 本地模式详解&lt;/h2&gt;
+&lt;h3&gt;2.4.1 文件结构&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;相册名称/
+├── info.json              # 配置文件
+├── cover.jpg              # 封面图（必需）
+├── 图片1.jpg
+├── 图片2.png
+├── 图片3.gif
+└── ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;2.4.2 文件命名规则&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;封面图片&lt;/strong&gt;&lt;code&gt;必须&lt;/code&gt;命名为 &lt;code&gt;cover.jpg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他图片&lt;/strong&gt;可以&lt;strong&gt;任意命名&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;支持&lt;strong&gt;中文&lt;/strong&gt;文件名&lt;/li&gt;
+&lt;li&gt;建议使用&lt;strong&gt;有意义的&lt;/strong&gt;文件名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2.5 外链模式详解&lt;/h2&gt;
+&lt;h3&gt;2.5.1 文件结构&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;相册名称/
+└── info.json          # 配置文件
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​		外链模式需要在 &lt;code&gt;info.json&lt;/code&gt; 中&lt;strong&gt;完整定义所有图片信息&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3&gt;2.5.2 照片字段说明&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;字段&lt;/th&gt;
+&lt;th&gt;类型&lt;/th&gt;
+&lt;th&gt;必需&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;id&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;唯一标识符，不设置会自动生成&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;src&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;是&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;图片链接地址&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;thumbnail&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;缩略图链接&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;alt&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;替代文本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;title&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;图片标题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;description&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;图片描述&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;array&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;图片标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;date&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;拍摄日期&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;location&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;拍摄地点&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;width&lt;/code&gt;/&lt;code&gt;height&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;图片尺寸&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;camera&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;相机型号&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lens&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;镜头信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;settings&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;object&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;拍摄参数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3&gt;2.5.3 完整版配置示例&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;mode&quot;: &quot;external&quot;,
+  &quot;title&quot;: &quot;风景摄影集&quot;,
+  &quot;description&quot;: &quot;来自世界各地的美丽风景&quot;,
+  &quot;date&quot;: &quot;2024-08-20&quot;,
+  &quot;location&quot;: &quot;全球&quot;,
+  &quot;tags&quot;: [&quot;风景&quot;, &quot;摄影&quot;, &quot;自然&quot;],
+  &quot;layout&quot;: &quot;masonry&quot;,
+  &quot;columns&quot;: 3,
+  &quot;cover&quot;: &quot;https://cdn.example.com/albums/landscape/cover.jpg&quot;,
+  &quot;photos&quot;: [
+    {
+      &quot;id&quot;: &quot;mountain-sunset&quot;,
+      &quot;src&quot;: &quot;https://cdn.example.com/photos/mountain-sunset.jpg&quot;,
+      &quot;thumbnail&quot;: &quot;https://cdn.example.com/thumbs/mountain-sunset.jpg&quot;,
+      &quot;alt&quot;: &quot;山顶日落&quot;,
+      &quot;title&quot;: &quot;阿尔卑斯山日落&quot;,
+      &quot;description&quot;: &quot;在阿尔卑斯山顶拍摄的壮丽日落景象&quot;,
+      &quot;tags&quot;: [&quot;山脉&quot;, &quot;日落&quot;, &quot;阿尔卑斯&quot;],
+      &quot;date&quot;: &quot;2024-07-15&quot;,
+      &quot;location&quot;: &quot;瑞士阿尔卑斯山&quot;,
+      &quot;width&quot;: 1920,
+      &quot;height&quot;: 1080,
+      &quot;camera&quot;: &quot;Canon EOS R5&quot;,
+      &quot;lens&quot;: &quot;RF 24-70mm f/2.8L IS USM&quot;,
+      &quot;settings&quot;: {
+        &quot;aperture&quot;: &quot;f/8&quot;,
+        &quot;shutter&quot;: &quot;1/125&quot;,
+        &quot;iso&quot;: &quot;200&quot;,
+        &quot;focal&quot;: &quot;35mm&quot;
+      }
+    },
+    {
+      &quot;id&quot;: &quot;ocean-waves&quot;,
+      &quot;src&quot;: &quot;https://cdn.example.com/photos/ocean-waves.jpg&quot;,
+      &quot;alt&quot;: &quot;海浪&quot;,
+      &quot;title&quot;: &quot;太平洋海浪&quot;,
+      &quot;tags&quot;: [&quot;海洋&quot;, &quot;海浪&quot;],
+      &quot;width&quot;: 1920,
+      &quot;height&quot;: 1280
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;2.5.4 外链服务推荐&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;免费服务&lt;/strong&gt;：Imgur、Cloudinary（有免费额度）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;付费CDN&lt;/strong&gt;：阿里云OSS、腾讯云COS、AWS S3&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;图床服务&lt;/strong&gt;：SM.MS、路过图床&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GitHub&lt;/strong&gt;：注意使用限制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;3. 隐藏功能&lt;/h1&gt;
+&lt;h2&gt;3.1 使用方法&lt;/h2&gt;
+&lt;p&gt;​		在任何模式的 &lt;code&gt;info.json&lt;/code&gt; 中添加 &lt;code&gt;&quot;hidden&quot;: true&lt;/code&gt; 即可隐藏相册。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&quot;hidden&quot;: true&lt;/code&gt;：隐藏相册&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&quot;hidden&quot;: false &lt;/code&gt;：显示相册&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.2 隐藏行为&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;相册&lt;strong&gt;不会出现&lt;/strong&gt;在相册列表页面&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不是真正的访问控制：&lt;strong&gt;文件仍然保留在服务器上&lt;/strong&gt;，知道&lt;strong&gt;直接链接&lt;/strong&gt;仍可访问&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.3 使用场景&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;临时隐藏&lt;/strong&gt;：维护期间暂时隐藏&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;私人内容&lt;/strong&gt;：不想公开展示的相册&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;测试相册&lt;/strong&gt;：开发测试用途&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;未完成相册&lt;/strong&gt;：正在整理中的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;季节性展示&lt;/strong&gt;：特定时期才显示&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;4. 相册配置示例&lt;/h1&gt;
+&lt;h2&gt;4.1 本地模式相册&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;title&quot;: &quot;家庭聚会&quot;,
+  &quot;description&quot;: &quot;2024年春节家庭聚会的温馨时光&quot;,
+  &quot;date&quot;: &quot;2024-02-10&quot;,
+  &quot;location&quot;: &quot;北京&quot;,
+  &quot;tags&quot;: [&quot;家庭&quot;, &quot;春节&quot;, &quot;聚会&quot;],
+  &quot;layout&quot;: &quot;grid&quot;,
+  &quot;columns&quot;: 4
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;4.2 外链模式相册&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;mode&quot;: &quot;external&quot;,
+  &quot;title&quot;: &quot;街头摄影&quot;,
+  &quot;description&quot;: &quot;城市街头的生活瞬间&quot;,
+  &quot;date&quot;: &quot;2024-06-15&quot;,
+  &quot;location&quot;: &quot;上海&quot;,
+  &quot;tags&quot;: [&quot;街头&quot;, &quot;摄影&quot;, &quot;城市&quot;],
+  &quot;layout&quot;: &quot;masonry&quot;,
+  &quot;columns&quot;: 3,
+  &quot;cover&quot;: &quot;https://cdn.example.com/street/cover.jpg&quot;,
+  &quot;photos&quot;: [
+    {
+      &quot;src&quot;: &quot;https://cdn.example.com/street/photo1.jpg&quot;,
+      &quot;alt&quot;: &quot;街头行人&quot;,
+      &quot;title&quot;: &quot;匆忙的脚步&quot;,
+      &quot;tags&quot;: [&quot;行人&quot;, &quot;街头&quot;]
+    },
+    {
+      &quot;src&quot;: &quot;https://cdn.example.com/street/photo2.jpg&quot;,
+      &quot;alt&quot;: &quot;咖啡店&quot;,
+      &quot;title&quot;: &quot;角落的咖啡店&quot;,
+      &quot;tags&quot;: [&quot;咖啡&quot;, &quot;店铺&quot;]
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;4.3 隐藏的外链模式相册&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;mode&quot;: &quot;external&quot;,
+  &quot;hidden&quot;: true,
+  &quot;title&quot;: &quot;测试相册&quot;,
+  &quot;description&quot;: &quot;用于测试的相册，暂时隐藏&quot;,
+  &quot;cover&quot;: &quot;https://picsum.photos/800/600&quot;,
+  &quot;photos&quot;: [
+    {
+      &quot;src&quot;: &quot;https://picsum.photos/800/600?random=1&quot;,
+      &quot;alt&quot;: &quot;测试图片&quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;5. 最佳实践经验&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本地模式&lt;/strong&gt;：压缩图片以节省空间和提高加载速度&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;外链模式&lt;/strong&gt;：使用CDN和适当的图片格式以提高访问速度&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;建议尺寸&lt;/strong&gt;：封面图建议800x600，相册图片建议不超过2000px&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;标签管理&lt;/strong&gt;：避免过多的标签，建议3到5个
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&quot;tags&quot;: [&quot;事件标签&quot;, &quot;人物标签&quot;, &quot;地点标签&quot;]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;布局选择&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Grid布局&lt;/strong&gt;：适合尺寸相近的图片&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Masonry布局&lt;/strong&gt;：适合尺寸差异较大的图片&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;列数设置&lt;/strong&gt;：手机端建议1-2列，桌面端3-4列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded></item><item><title>博客个性化配置</title><link>https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/</link><guid isPermaLink="true">https://shadowchencsd.github.io/posts/%E5%8D%9A%E5%AE%A2%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/</guid><description>介绍博客的来源、启动和个性化配置过程。</description><pubDate>Tue, 30 Sep 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;1. 来源&lt;/h1&gt;
+&lt;p&gt;​		本博客自&lt;a href=&quot;https://github.com/matsuzaka-yuki/Mizuki&quot;&gt;&lt;strong&gt;Mizuki&lt;/strong&gt;&lt;/a&gt;主题博客改造而来，原作者是&lt;a href=&quot;https://space.bilibili.com/701864046&quot;&gt;&lt;strong&gt;松坂有希&lt;/strong&gt;&lt;/a&gt;；而Mizuki主题，又是从&lt;a href=&quot;https://github.com/saicaca/fuwari&quot;&gt;&lt;strong&gt;Fuwari&lt;/strong&gt;&lt;/a&gt;主题博客改造而来，原作者是&lt;a href=&quot;https://space.bilibili.com/325903362&quot;&gt;&lt;strong&gt;二叉树树&lt;/strong&gt;&lt;/a&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Mizuki主题&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;Mizuki%E4%B8%BB%E9%A2%98.png&quot; alt=&quot;Mizuki主题&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Fuwari主题&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;Fuwari%E4%B8%BB%E9%A2%98.png&quot; alt=&quot;Fuwari&quot; /&gt;&lt;/p&gt;
+&lt;h1&gt;2. 启动&lt;/h1&gt;
+&lt;h2&gt;2.1 下载仓库&lt;/h2&gt;
+&lt;p&gt;​		本博客选用的版本是&lt;a href=&quot;https://github.com/matsuzaka-yuki/Mizuki/releases/tag/4.9.3&quot;&gt;&lt;strong&gt;Mizuki v4.9.5 LTS&lt;/strong&gt;&lt;/a&gt;。推荐使用LTS版本，不要使用master版本。&lt;/p&gt;
+&lt;h2&gt;2.2 安装npm和pnpm&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;安装&lt;strong&gt;npm&lt;/strong&gt;：https://nodejs.org/en ，选择&lt;strong&gt;LTS版本&lt;/strong&gt;下载安装，&lt;em&gt;不需要安装chocolatey&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;安装&lt;strong&gt;pnpm&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;npm install -g pnpm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2.3 安装环境依赖&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;pnpm install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2.4 开发、编译与预览&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th&gt;功能&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;pnpm dev&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;启动&lt;strong&gt;本地开发服务&lt;/strong&gt;，运行在&lt;code&gt;localhost:4321&lt;/code&gt;站点&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;pnpm build&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;编译生产站点&lt;/strong&gt;至&lt;code&gt;./dist/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;pnpm preview&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;在部署前&lt;/strong&gt;，&lt;strong&gt;预览&lt;/strong&gt;本地编译后的网站状态&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1&gt;3. 个性化配置&lt;/h1&gt;
+&lt;h2&gt;3.1 主页名称&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;SiteConfig&lt;/code&gt;配置中的&lt;code&gt;title&lt;/code&gt;和&lt;code&gt;subtitle&lt;/code&gt;内容，对应网站主页的&lt;strong&gt;标题&lt;/strong&gt;和&lt;strong&gt;副标题&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2&gt;3.2 主题色&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;SiteConfig&lt;/code&gt;配置中的&lt;code&gt;themeColor&lt;/code&gt;内容，调整网站的&lt;strong&gt;主题色&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;​		主题颜色对应的是&lt;code&gt;hue&lt;/code&gt;值，&lt;strong&gt;选取范围&lt;/strong&gt;为&lt;strong&gt;0~360&lt;/strong&gt;，如：&lt;code&gt;红色=0&lt;/code&gt;，&lt;code&gt;青色=200&lt;/code&gt;，&lt;code&gt;蓝绿色=250&lt;/code&gt;，&lt;code&gt;粉色=345&lt;/code&gt;等。&lt;/p&gt;
+&lt;h2&gt;3.3 Banner壁纸&lt;/h2&gt;
+&lt;h3&gt;配置修改&lt;/h3&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;SiteConfig&lt;/code&gt;配置中的&lt;strong&gt;banner&lt;/strong&gt;内容，可以修改网站的&lt;strong&gt;banner&lt;/strong&gt;信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;电脑端&lt;/strong&gt;：修改&lt;code&gt;src&lt;/code&gt;中的&lt;code&gt;desktop&lt;/code&gt;信息，&lt;strong&gt;自定义图像路径&lt;/strong&gt;，即可修改&lt;strong&gt;电脑端&lt;/strong&gt;图像内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;手机端&lt;/strong&gt;：修改&lt;code&gt;src&lt;/code&gt;中的&lt;code&gt;mobile&lt;/code&gt;信息，&lt;strong&gt;自定义图像路径&lt;/strong&gt;，即可修改&lt;strong&gt;手机端&lt;/strong&gt;图像内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;轮播功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能开关&lt;/strong&gt;：修改&lt;code&gt;carousel&lt;/code&gt;中的&lt;code&gt;enable&lt;/code&gt;信息，可以&lt;strong&gt;启动或关闭&lt;/strong&gt;壁纸轮播功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;开启&lt;/strong&gt;：按&lt;strong&gt;轮播间隔&lt;/strong&gt;播放图片&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关闭&lt;/strong&gt;：&lt;strong&gt;随机&lt;/strong&gt;显示一张图片&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;轮播间隔&lt;/strong&gt;：修改&lt;code&gt;carousel&lt;/code&gt;中的&lt;code&gt;interval&lt;/code&gt;信息，可以修改banner图像的&lt;strong&gt;轮播间隔&lt;/strong&gt;时间，单位为&lt;strong&gt;秒&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;高度调整&lt;/h3&gt;
+&lt;p&gt;​		修改 &lt;code&gt;src/constants/constants.ts&lt;/code&gt; 中的&lt;code&gt;BANNER_HEIGHT&lt;/code&gt;、&lt;code&gt;BANNER_HEIGHT_EXTEND&lt;/code&gt;变量的值，可以控制首页壁纸的高度。&lt;/p&gt;
+&lt;p&gt;​		&lt;code&gt;MAIN_PANEL_OVERLAPS_BANNER_HEIGHT&lt;/code&gt;为&lt;strong&gt;波浪块&lt;/strong&gt;的位置，可在调试时作适配性地调整。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;BANNER_HEIGHT&lt;/code&gt;为&lt;strong&gt;每一页&lt;/strong&gt;的&lt;strong&gt;导航栏到正文&lt;/strong&gt;的距离&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;BANNER_HEIGHT_EXTEND&lt;/code&gt;为&lt;strong&gt;首页&lt;/strong&gt;的&lt;strong&gt;导航栏到正文&lt;/strong&gt;额外追加的距离：
+&lt;ul&gt;
+&lt;li&gt;若值为0，则&lt;strong&gt;每一页导航栏到正文的距离&lt;/strong&gt;一致，均为&lt;code&gt;BANNER_HEIGHT&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;若值不为0，则&lt;strong&gt;首页的壁纸高度将更高&lt;/strong&gt;，但&lt;strong&gt;其他页的壁纸高度保持不变&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;推荐方案一&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;BANNER_HEIGHT&lt;/code&gt; = 25，&lt;code&gt;BANNER_HEIGHT_EXTEN&lt;/code&gt; = 0，&lt;code&gt;MAIN_PANEL_OVERLAPS_BANNER_HEIGHT&lt;/code&gt; = 25&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;每一页导航栏到正文的距离一致，结构整齐&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;首页壁纸只能不完整地显示&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;%E9%A6%96%E9%A1%B5%E5%A3%81%E7%BA%B8%C2%B7%E4%B8%80%E8%87%B4%E9%AB%98%E5%BA%A6.png&quot; alt=&quot;首页壁纸·一致高度&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;%E5%85%B6%E4%BB%96%E9%A1%B5%E5%A3%81%E7%BA%B8%E9%AB%98%E5%BA%A6.png&quot; alt=&quot;其他页壁纸高度&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;推荐方案二&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;BANNER_HEIGHT&lt;/code&gt; = 25，&lt;code&gt;BANNER_HEIGHT_EXTEND&lt;/code&gt; = 80，&lt;code&gt;MAIN_PANEL_OVERLAPS_BANNER_HEIGHT&lt;/code&gt; = 25&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;特点&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;首页壁纸全屏显示&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其余页导航栏到正文的距离一致&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;%E9%A6%96%E9%A1%B5%E5%A3%81%E7%BA%B8%C2%B7%E6%BB%A1%E5%B1%8F%E9%AB%98%E5%BA%A6.png&quot; alt=&quot;首页壁纸·满屏高度&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;%E5%85%B6%E4%BB%96%E9%A1%B5%E5%A3%81%E7%BA%B8%E9%AB%98%E5%BA%A6.png&quot; alt=&quot;其他页壁纸高度&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;3.4 Banner标题&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;SiteConfig&lt;/code&gt;配置中的&lt;strong&gt;banner&lt;/strong&gt;内容，可以修改网站的&lt;strong&gt;banner&lt;/strong&gt;信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能开关&lt;/strong&gt;：修改&lt;code&gt;homeText&lt;/code&gt;中的&lt;code&gt;enable&lt;/code&gt;信息，可以&lt;strong&gt;启动或关闭&lt;/strong&gt;标题内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;主标题&lt;/strong&gt;：修改&lt;code&gt;homeText&lt;/code&gt;中的&lt;code&gt;title&lt;/code&gt;信息，可以修改&lt;strong&gt;Banner标题内容&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;副标题&lt;/strong&gt;：修改&lt;code&gt;homeText&lt;/code&gt;中的&lt;code&gt;subtitle&lt;/code&gt;信息，可以修改&lt;strong&gt;Banner副标题内容&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;打字机效果&lt;/strong&gt;：修改&lt;code&gt;typewriter&lt;/code&gt;信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;%E6%A0%87%E9%A2%98.png&quot; alt=&quot;标题&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;3.5 头像、名称、介绍、网站&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;ProfileConfig&lt;/code&gt;的内容，可以修改&lt;strong&gt;个人资料&lt;/strong&gt;信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;头像&lt;/strong&gt;：通过修改&lt;code&gt;avatar&lt;/code&gt;信息，设置自定义&lt;strong&gt;头像&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;头像图片地址&lt;/strong&gt;：&lt;code&gt;src/assets/images/avatar.jpg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;名称&lt;/strong&gt;：通过修改&lt;code&gt;name&lt;/code&gt;信息，设置&lt;strong&gt;个人名称&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;介绍&lt;/strong&gt;：通过修改&lt;code&gt;bio&lt;/code&gt;信息，设置&lt;strong&gt;个人介绍&lt;/strong&gt;的内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网站&lt;/strong&gt;：通过修改&lt;code&gt;links&lt;/code&gt;信息，修改&lt;strong&gt;个人网站&lt;/strong&gt;的内容
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;：网站名称&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;icon&lt;/code&gt;：网站图标&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt;：网站地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.6 全屏壁纸&lt;/h2&gt;
+&lt;h3&gt;配置修改&lt;/h3&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;FullscreenWallpaperConfig&lt;/code&gt;的信息，可以设定网站的&lt;strong&gt;全屏壁纸&lt;/strong&gt;图片。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;电脑端&lt;/strong&gt;：修改&lt;code&gt;src&lt;/code&gt;中的&lt;code&gt;desktop&lt;/code&gt;信息，&lt;strong&gt;自定义图像路径&lt;/strong&gt;，可以修改&lt;strong&gt;电脑端&lt;/strong&gt;图像内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;手机端&lt;/strong&gt;：修改&lt;code&gt;src&lt;/code&gt;中的&lt;code&gt;mobile&lt;/code&gt;信息，&lt;strong&gt;自定义图像路径&lt;/strong&gt;，可以修改&lt;strong&gt;手机端&lt;/strong&gt;图像内容&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;功能开关&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;banner模式&lt;/code&gt;为&lt;code&gt;true&lt;/code&gt;，启用&lt;strong&gt;Banner壁纸&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;banner模式&lt;/code&gt;为&lt;code&gt;false&lt;/code&gt;，启用&lt;strong&gt;全屏壁纸&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;%E5%85%A8%E5%B1%8F%E5%A3%81%E7%BA%B8.png&quot; alt=&quot;全屏壁纸&quot; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;banner模式&lt;/code&gt;为&lt;code&gt;false&lt;/code&gt;，不启用&lt;strong&gt;全屏壁纸&lt;/strong&gt;，&lt;strong&gt;全屏壁纸&lt;/strong&gt;为&lt;strong&gt;空白状态&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;%E6%97%A0%E5%A3%81%E7%BA%B8.png&quot; alt=&quot;无壁纸&quot; /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;轮播功能&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;功能开关&lt;/strong&gt;：修改&lt;code&gt;carousel&lt;/code&gt;中的&lt;code&gt;enable&lt;/code&gt;信息，可以&lt;strong&gt;启动或关闭&lt;/strong&gt;壁纸轮播功能
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;开启&lt;/strong&gt;：按&lt;strong&gt;轮播间隔&lt;/strong&gt;播放图片&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;关闭&lt;/strong&gt;：显示&lt;strong&gt;最后一张&lt;/strong&gt;图片&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;轮播间隔&lt;/strong&gt;：修改&lt;code&gt;carousel&lt;/code&gt;中的&lt;code&gt;interval&lt;/code&gt;信息，可以修改banner图像的&lt;strong&gt;轮播间隔&lt;/strong&gt;时间，单位为&lt;strong&gt;秒&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.7 公告&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;如需&lt;strong&gt;使用&lt;/strong&gt;，修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;AnnouncementConfig&lt;/code&gt;的内容，即可修改&lt;strong&gt;公告&lt;/strong&gt;内容。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;title&lt;/code&gt;：&lt;strong&gt;公告标题&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content&lt;/code&gt;：&lt;strong&gt;公告内容&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;link&lt;/code&gt;：&lt;strong&gt;公告链接&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如&lt;strong&gt;不使用&lt;/strong&gt;，则将&lt;code&gt;sidebarLayoutConfig&lt;/code&gt;的&lt;code&gt;components&lt;/code&gt;列表中的&lt;code&gt;announcement&lt;/code&gt;组件的&lt;code&gt;enable&lt;/code&gt;字段设置为&lt;code&gt;false&lt;/code&gt;，即可关闭&lt;strong&gt;公告&lt;/strong&gt;模块。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.8 导航栏&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;NavBarConfig&lt;/code&gt;的信息，可以修改网站的&lt;strong&gt;导航栏&lt;/strong&gt;信息。&lt;/p&gt;
+&lt;p&gt;​		既可以直接使用&lt;strong&gt;预设&lt;/strong&gt;的导航内容，也可以使用&lt;strong&gt;自定义&lt;/strong&gt;导航栏链接：以&lt;strong&gt;json&lt;/strong&gt;格式编写，支持&lt;strong&gt;多级菜单&lt;/strong&gt;形式。&lt;/p&gt;
+&lt;p&gt;​		&lt;strong&gt;预设导航内容&lt;/strong&gt;一览如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Home&lt;/code&gt;：&lt;strong&gt;主页&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Archive&lt;/code&gt;：&lt;strong&gt;文章&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Diary&lt;/code&gt;：&lt;strong&gt;日记&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;src/pages/diary.astro&lt;/code&gt; 中编辑&lt;strong&gt;日记&lt;/strong&gt;内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Albums&lt;/code&gt;：&lt;strong&gt;相册&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;public/images/albums&lt;/code&gt; 中生成相册文件夹，更新&lt;strong&gt;相册&lt;/strong&gt;内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Anime&lt;/code&gt;：&lt;strong&gt;追番&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;src/pages/anime.astro&lt;/code&gt; 中编辑&lt;strong&gt;追番&lt;/strong&gt;内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;番剧封面地址&lt;/strong&gt;：&lt;code&gt;src/assets/anime&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Game&lt;/code&gt;：&lt;strong&gt;游戏&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;src/pages/game.astro&lt;/code&gt; 中编辑&lt;strong&gt;游戏&lt;/strong&gt;内容&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;游戏封面地址&lt;/strong&gt;：&lt;code&gt;src/assets/game&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Friends&lt;/code&gt;：&lt;strong&gt;友链&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;保留 &lt;code&gt;src/content/spec/friends.md&lt;/code&gt; 的&lt;strong&gt;空文档&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;在 &lt;code&gt;src/pages/friends.astro&lt;/code&gt;  中编辑&lt;strong&gt;友链&lt;/strong&gt;信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;About&lt;/code&gt;：&lt;strong&gt;关于&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;src/content/spec/about.md&lt;/code&gt; 中编辑&lt;strong&gt;关于&lt;/strong&gt;内容&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;s&gt;&lt;code&gt;Projects&lt;/code&gt;：&lt;strong&gt;项目&lt;/strong&gt;&lt;/s&gt;（&lt;strong&gt;未启用&lt;/strong&gt;）
+&lt;ul&gt;
+&lt;li&gt;&lt;s&gt;在 &lt;code&gt;src/data/projects.ts&lt;/code&gt; 中编辑&lt;strong&gt;项目&lt;/strong&gt;内容&lt;/s&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;s&gt;&lt;code&gt;Skills&lt;/code&gt;：&lt;strong&gt;技能&lt;/strong&gt;&lt;/s&gt;（&lt;strong&gt;未启用&lt;/strong&gt;）
+&lt;ul&gt;
+&lt;li&gt;&lt;s&gt;在 &lt;code&gt;src/data/skill.ts&lt;/code&gt; 中编辑&lt;strong&gt;技能&lt;/strong&gt;内容&lt;/s&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;s&gt;&lt;code&gt;Timeline &lt;/code&gt;：&lt;strong&gt;时间线&lt;/strong&gt;&lt;/s&gt;（&lt;strong&gt;未启用&lt;/strong&gt;）
+&lt;ul&gt;
+&lt;li&gt;&lt;s&gt;在 &lt;code&gt;src/data/timeline.ts&lt;/code&gt; 中编辑&lt;strong&gt;时间线&lt;/strong&gt;内容&lt;/s&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3.9 樱花特效&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;SakuraConfig&lt;/code&gt;的信息，可以设定网站的&lt;strong&gt;樱花&lt;/strong&gt;特效。&lt;/p&gt;
+&lt;p&gt;​		根据个人喜好，进行&lt;strong&gt;功能启动或关闭&lt;/strong&gt;和&lt;strong&gt;参数微调&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2&gt;3.10 看板娘&lt;/h2&gt;
+&lt;h3&gt;外部配置修改&lt;/h3&gt;
+&lt;p&gt;​		修改&lt;code&gt;src/config.ts&lt;/code&gt;中&lt;code&gt;pioConfig&lt;/code&gt;的信息，可以修改&lt;strong&gt;看板娘&lt;/strong&gt;信息。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;models&lt;/code&gt;：选取&lt;strong&gt;看板娘模型&lt;/strong&gt;，使用的是pio方案，可参考：&lt;a href=&quot;https://paugram.com/coding/add-poster-girl-with-plugin.html&quot;&gt;给你的博客增加动态看板娘&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;position&lt;/code&gt;：看板娘的&lt;strong&gt;位置&lt;/strong&gt;，&lt;strong&gt;左边&lt;/strong&gt;或者&lt;strong&gt;右边&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;width&lt;/code&gt;和&lt;code&gt;height&lt;/code&gt;：看板娘的&lt;strong&gt;高度&lt;/strong&gt;和&lt;strong&gt;宽度&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mode&lt;/code&gt;：看板娘&lt;strong&gt;能否拖拽&lt;/strong&gt;，&lt;code&gt;fixed&lt;/code&gt;为固定，&lt;code&gt;draggable&lt;/code&gt;为可以拖拽&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;内部配置修改&lt;/h3&gt;
+&lt;p&gt;​		修改&lt;code&gt;public/pio/static/pio.css&lt;/code&gt;中的信息，可以对&lt;strong&gt;看板娘&lt;/strong&gt;做一些更深层的修改。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;注释&lt;code&gt;pio-action&lt;/code&gt;的相关字段，可以&lt;strong&gt;关闭看板娘的动作响应&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;将&lt;code&gt;.pio-dialog&lt;/code&gt;中添加&lt;code&gt;text-align: center;&lt;/code&gt;，可以&lt;strong&gt;让看板娘的字幕居中显示&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;将&lt;code&gt;.pio-dialog.active&lt;/code&gt;的&lt;code&gt;visibility&lt;/code&gt;属性设为hidden，可以&lt;strong&gt;关闭看板娘的字幕显示&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;3.11 音乐组件&lt;/h2&gt;
+&lt;p&gt;​		修改&lt;code&gt;src\components\widget\MusicPlayer.svelte&lt;/code&gt;中的信息，即可修改&lt;strong&gt;音乐组件&lt;/strong&gt;的功能。&lt;/p&gt;
+&lt;h3&gt;在线音乐模式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将&lt;code&gt;musicPlayerConfig.mode&lt;/code&gt;的值设为&lt;code&gt;meting&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;设置&lt;code&gt;meting_api&lt;/code&gt;的相关参数，即可使用&lt;strong&gt;在线&lt;/strong&gt;音乐功能，支持&lt;strong&gt;网易云音乐&lt;/strong&gt;、&lt;strong&gt;QQ音乐&lt;/strong&gt;、&lt;strong&gt;酷狗音乐&lt;/strong&gt;、&lt;strong&gt;虾米音乐&lt;/strong&gt;、&lt;strong&gt;百度音乐&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;本地音乐模式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;将&lt;code&gt;musicPlayerConfig.mode&lt;/code&gt;的值设为&lt;code&gt;local&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;修改&lt;code&gt;localPlaylist&lt;/code&gt;的信息，填入&lt;strong&gt;本地&lt;/strong&gt;音乐的&lt;strong&gt;音乐文件路径&lt;/strong&gt;、&lt;strong&gt;专辑图像路径&lt;/strong&gt;及&lt;strong&gt;艺术家名称&lt;/strong&gt;，即可进行播放。&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded></item></channel></rss>

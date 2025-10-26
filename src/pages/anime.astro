@@ -1,0 +1,996 @@
+---
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+// 追番数据
+const animeList = [
+	{
+		title: "青春ブタ野郎はサンタクロースの夢を見ない / 圣诞服女郎",
+		status: "planned",
+		rating: 6.9,
+		cover: "assets/anime/青春猪头少年不会梦到圣诞服女郎.png",
+		description: "",
+		actor: "梓川咲太，樱岛麻衣",
+		year: "2025",
+		genre: ["校园", "恋爱", "奇幻"],
+		studio: "CloverWorks",
+		link: "https://www.agedm.io/detail/20250167",
+		progress: 13,
+		totalEpisodes: 13,
+	},
+	{
+		title: "The Super Mario Bros. Movie",
+		status: "completed",
+		rating: 7.1,
+		cover: "assets/anime/超级马力欧兄弟大电影.webp",
+		description: "",
+		actor: "马力欧，路易吉，碧姬公主",
+		year: "2023",
+		genre: ["冒险", "动作", "旅行", "奇幻", "搞笑"],
+		studio: "Nintendo",
+		link: "https://v.qq.com/x/cover/mzc00200pnlxrd3/s00461hs5e5.html",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "青春ブタ野郎はランドセルガールの夢を見ない / 红书包女孩",
+		status: "planned",
+		rating: 6.9,
+		cover: "assets/anime/青春猪头少年不会梦到红书包女孩.jpg",
+		description: "",
+		actor: "梓川咲太，樱岛麻衣",
+		year: "2023",
+		genre: ["校园", "恋爱", "奇幻"],
+		studio: "CloverWorks",
+		link: "",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "青春ブタ野郎はおでかけシスターの夢を見ない / 娇怜外出妹",
+		status: "planned",
+		rating: 6.6,
+		cover: "assets/anime/青春猪头少年不会梦到娇怜外出妹.webp",
+		description: "",
+		actor: "梓川咲太，樱岛麻衣，梓川枫",
+		year: "2023",
+		genre: ["校园", "恋爱", "奇幻"],
+		studio: "CloverWorks",
+		link: "https://www.agedm.io/detail/20230111",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "すずめの戸締まり / 铃芽之旅",
+		status: "completed",
+		rating: 6.6,
+		cover: "assets/anime/铃芽之旅.webp",
+		description: "",
+		actor: "岩户铃芽，宗像草太",
+		year: "2023",
+		genre: ["冒险", "旅行", "灾难", "奇幻", "催泪", "治愈"],
+		studio: "CoMix Wave Films",
+		link: "https://www.bilibili.com/bangumi/play/ss45005",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "数码宝贝：",
+		status: "watching",
+		rating: 5.9,
+		cover: "assets/anime/数码宝贝：.jpeg",
+		description: "",
+		actor: "八神太一，石田大和",
+		year: "2020",
+		genre: ["冒险", "热血", "奇幻", "成长"],
+		studio: "東映アニメーション",
+		link: "https://www.iqiyi.com/a_19rrhwmdmd.html",
+		progress: 0,
+		totalEpisodes: 67,
+	},
+	{
+		title: "天気の子 / 天气之子",
+		status: "completed",
+		rating: 7.1,
+		cover: "assets/anime/天气之子.webp",
+		description: "",
+		actor: "天野阳菜，森岛帆高",
+		year: "2019",
+		genre: ["日常", "恋爱", "冒险", "灾难", "奇幻", "超能力", "催泪", "治愈"],
+		studio: "CoMix Wave Films",
+		link: "https://www.bilibili.com/bangumi/play/ss33343",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "青春ブタ野郎はゆめみる少女の夢を見ない / 怀梦美少女",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/anime/青春猪头少年不会梦到怀梦美少女.jpg",
+		description: "",
+		actor: "梓川咲太，樱岛麻衣，牧之原翔子",
+		year: "2019",
+		genre: ["校园", "恋爱", "奇幻"],
+		studio: "CloverWorks",
+		link: "https://www.bilibili.com/bangumi/play/ss28965",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "青春ブタ野郎はバニーガール先輩の夢を見ない / 兔女郎学姐",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/anime/青春猪头少年不会梦到兔女郎学姐.jpg",
+		description: "",
+		actor: "梓川咲太，樱岛麻衣",
+		year: "2018",
+		genre: ["校园", "恋爱", "奇幻"],
+		studio: "CloverWorks",
+		link: "https://www.bilibili.com/bangumi/play/ep251076",
+		progress: 13,
+		totalEpisodes: 13,
+	},
+	{
+		title: "セイレン / 清恋",
+		status: "completed",
+		rating: 6.4,
+		cover: "assets/anime/清恋.webp",
+		description: "",
+		actor: "嘉味田正一，常木耀，宫前透",
+		year: "2017",
+		genre: ["校园", "恋爱", "搞笑"],
+		studio: "Studio五组 / AXsiZ",
+		link: "https://www.agedm.io/detail/20170010",
+		progress: 12,
+		totalEpisodes: 12,
+	},
+	{
+		title: "Coco / 寻梦环游记",
+		status: "planned",
+		rating: 7.9,
+		cover: "assets/anime/寻梦环游记.webp",
+		description: "",
+		actor: "米格尔·里韦拉斯",
+		year: "2017",
+		genre: ["冒险", "家庭", "亲情", "成长", "音乐", "催泪", "治愈"],
+		studio: "Walt Disney",
+		link: "https://www.bilibili.com/bangumi/play/ss46063",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "Zootopia / 疯狂动物城",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/anime/疯狂动物城.webp",
+		description: "",
+		actor: "朱迪，尼克",
+		year: "2016",
+		genre: ["冒险", "恋爱", "奇幻", "悬疑", "搞笑", "动物", "治愈"],
+		studio: "Walt Disney",
+		link: "https://www.bilibili.com/bangumi/play/ss46054",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "遊☆戯☆王：THE DARK SIDE OF DIMENSIONS",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/anime/游戏王：次元之暗面.webp",
+		description: "",
+		actor: "武藤游戏，海马濑人，蓝神",
+		year: "2016",
+		genre: ["卡牌", "竞技", "热血", "奇幻", "战斗"],
+		studio: "ぎゃろっぷ",
+		link: "https://www.agedm.io/detail/20160271",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "苍之彼方的四重奏",
+		status: "watching",
+		rating: 5.9,
+		cover: "assets/anime/苍之彼方的四重奏.webp",
+		description: "",
+		actor: "日向晶也，仓科明日香，有坂真白",
+		year: "2016",
+		genre: ["校园", "恋爱", "竞技", "热血", "运动"],
+		studio: "Sprite",
+		link: "https://www.bilibili.com/bangumi/play/ss3106",
+		progress: 0,
+		totalEpisodes: 12,
+	},
+	{
+		title: "君の名は。 / 你的名字。",
+		status: "completed",
+		rating: 7.9,
+		cover: "assets/anime/你的名字。.webp",
+		description: "",
+		actor: "立花泷，宫水三叶",
+		year: "2016",
+		genre: ["校园", "灾难", "恋爱", "穿越", "催泪", "治愈"],
+		studio: "CoMix Wave Films",
+		link: "https://v.qq.com/x/cover/gz9q7kd8wviwkxv/m0024nvac3j.html",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "言の葉の庭 / 言叶之庭",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/anime/言叶之庭.webp",
+		description: "",
+		actor: "秋月孝雄，雪野百香里",
+		year: "2013",
+		genre: ["校园", "日常", "恋爱", "师生", "足控", "催泪", "治愈"],
+		studio: "CoMix Wave Films",
+		link: "https://www.bilibili.com/bangumi/play/ss2546",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "Frozen / 冰雪奇缘",
+		status: "completed",
+		rating: 7.3,
+		cover: "assets/anime/冰雪奇缘.webp",
+		description: "",
+		actor: "艾莎，安娜",
+		year: "2013",
+		genre: ["冒险", "恋爱", "魔法", "音乐", "治愈"],
+		studio: "Walt Disney",
+		link: "https://www.bilibili.com/bangumi/play/ss46052",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "恋爱选举与巧克力",
+		status: "completed",
+		rating: 6.4,
+		cover: "assets/anime/恋爱选举与巧克力.webp",
+		description: "",
+		actor: "大岛祐树，住吉千里，东云皐月",
+		year: "2012",
+		genre: ["校园", "恋爱", "治愈"],
+		studio: "Sprite",
+		link: "",
+		progress: 13,
+		totalEpisodes: 13,
+	},
+	{
+		title: "あのはな / 未闻花名",
+		status: "completed",
+		rating: 7.6,
+		cover: "assets/anime/未闻花名.webp",
+		description: "",
+		actor: "宿海仁太，本间芽衣子",
+		year: "2011",
+		genre: ["日常", "悬疑", "奇幻", "催泪", "治愈"],
+		studio: "A-1 Pictures",
+		link: "https://www.bilibili.com/bangumi/play/ss835",
+		progress: 11,
+		totalEpisodes: 11,
+	},
+	{
+		title: "遊☆戯☆王 〜超融合!時空を越えた絆〜 ",
+		status: "completed",
+		rating: 6.6,
+		cover: "assets/anime/游戏王·超融合！超越时空的羁绊.jpeg",
+		description: "",
+		actor: "武藤游戏，游城十代，不动游星",
+		year: "2010",
+		genre: ["卡牌", "竞技", "热血", "奇幻", "战斗"],
+		studio: "ぎゃろっぷ",
+		link: "",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "ヨスガノソラ / 缘之空",
+		status: "planned",
+		rating: 6.6,
+		cover: "assets/anime/缘之空.jpg",
+		description: "",
+		actor: "春日野悠，春日野穹",
+		year: "2010",
+		genre: ["日常", "校园", "恋爱", "禁忌", "18R"],
+		studio: "feel.",
+		link: "https://www.agedm.io/detail/20100003",
+		progress: 12,
+		totalEpisodes: 12,
+	},
+	{
+		title: "キスシス / kiss×sis",
+		status: "watching",
+		rating: 6.7,
+		cover: "assets/anime/kiss×sis.webp",
+		description: "",
+		actor: "住之江あこ，住之江りこ",
+		year: "2010",
+		genre: ["日常", "校园", "恋爱", "禁忌", "18R"],
+		studio: "feel.",
+		link: "https://www.agedm.io/detail/20100021",
+		progress: 0,
+		totalEpisodes: 12,
+	},
+	{
+		title: "CLANNAD AFTER STORY 杏篇",
+		status: "completed",
+		rating: 7.6,
+		cover: "assets/anime/CLANNAD AFTER STORY 杏篇.webp",
+		description: "",
+		actor: "冈崎朋也，藤林杏",
+		year: "2009",
+		genre: ["校园", "恋爱", "催泪", "治愈", "番外"],
+		studio: "key",
+		link: "https://www.bilibili.com/bangumi/play/ep34518",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "CLANNAD AFTER STORY",
+		status: "completed",
+		rating: 9.1,
+		cover: "assets/anime/CLANNAD AFTER STORY.jpg",
+		description: "",
+		actor: "冈崎朋也，古河渚，冈崎汐",
+		year: "2008",
+		genre: ["校园", "恋爱", "成长", "搞笑", "催泪", "治愈"],
+		studio: "key",
+		link: "https://www.bilibili.com/bangumi/play/ss1178",
+		progress: 24,
+		totalEpisodes: 24,
+	},
+	{
+		title: "キスシス OAD / kiss×sis OAD",
+		status: "watching",
+		rating: 6.9,
+		cover: "assets/anime/kiss×sis OAD.webp",
+		description: "",
+		actor: "住之江あこ，住之江りこ",
+		year: "2008",
+		genre: ["日常", "校园", "恋爱", "禁忌", "18R"],
+		studio: "feel.",
+		link: "https://www.agedm.io/detail/20080018",
+		progress: 0,
+		totalEpisodes: 12,
+	},
+	{
+		title: "CLANNAD 智代篇",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/anime/CLANNAD 智代篇.webp",
+		description: "",
+		actor: "冈崎朋也，智代",
+		year: "2008",
+		studio: "key",
+		genre: ["校园", "恋爱", "催泪", "治愈", "番外"],
+		link: "https://www.bilibili.com/bangumi/play/ss2655",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "CLANNAD",
+		status: "completed",
+		rating: 8.4,
+		cover: "assets/anime/CLANNAD.jpg",
+		description: "",
+		actor: "冈崎朋也，古河渚",
+		year: "2007",
+		studio: "key",
+		genre: ["校园", "恋爱", "成长", "搞笑", "催泪", "治愈"],
+		link: "https://www.bilibili.com/bangumi/play/ss1177",
+		progress: 23,
+		totalEpisodes: 23,
+	},
+	{
+		title: "秒速5センチメートル / 秒速5厘米",
+		status: "completed",
+		rating: 7.9,
+		cover: "assets/anime/秒速5厘米.webp",
+		description: "",
+		actor: "远野贵树，篠原明里，澄田花苗",
+		year: "2007",
+		genre: ["校园", "青春", "恋爱", "催泪", "治愈"],
+		studio: "CoMix Wave Films",
+		link: "",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "Kanon / 雪之少女",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/anime/Kanon.webp",
+		description: "",
+		actor: "相泽祐一，月宫亚由",
+		year: "2006",
+		genre: ["校园", "恋爱", "奇幻", "治愈"],
+		studio: "key",
+		link: "https://www.bilibili.com/bangumi/play/ss1375",
+		progress: 24,
+		totalEpisodes: 24,
+	},
+	{
+		title: "Air / 青空",
+		status: "completed",
+		rating: 8.0,
+		cover: "assets/anime/Air.webp",
+		description: "",
+		actor: "国崎往人，神尾观铃",
+		year: "2005",
+		genre: ["剧情", "奇幻", "治愈"],
+		studio: "key",
+		link: "https://www.bilibili.com/bangumi/play/ss1816",
+		progress: 14,
+		totalEpisodes: 14,
+	},
+	{
+		title: "遊☆戯☆王：光のピラミッド",
+		status: "completed",
+		rating: 6.6,
+		cover: "assets/anime/游戏王：光之金字塔.webp",
+		description: "",
+		actor: "武藤游戏，海马濑人",
+		year: "2004",
+		genre: ["卡牌", "竞技", "热血", "奇幻", "战斗"],
+		studio: "ぎゃろっぷ",
+		link: "https://www.bilibili.com/bangumi/play/ss21109",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "遊☆戯☆王 デュエルモンスターズ GX",
+		status: "watching",
+		rating: 7.1,
+		cover: "assets/anime/游戏王·怪兽之决斗·GX.webp",
+		description: "",
+		actor: "游城十代",
+		year: "2004",
+		genre: ["卡牌", "竞技", "热血", "奇幻", "战斗"],
+		studio: "ぎゃろっぷ",
+		link: "https://www.iqiyi.com/v_k41idhhgss.html",
+		progress: 0,
+		totalEpisodes: 180,
+	},
+	{
+		title: "数码宝贝·无限地带",
+		status: "planned",
+		rating: 7.3,
+		cover: "assets/anime/数码宝贝·无限地带.jpg",
+		description: "",
+		actor: "神原拓也，源辉二",
+		year: "2002",
+		genre: ["冒险", "热血", "科幻", "成长"],
+		studio: "東映アニメーション",
+		link: "https://www.iqiyi.com/v_19rrobthks.html",
+		progress: 50,
+		totalEpisodes: 50,
+	},
+	{
+		title: "数码宝贝·驯兽师之王",
+		status: "planned",
+		rating: 7.9,
+		cover: "assets/anime/数码宝贝·驯兽师之王.jpg",
+		description: "",
+		actor: "松田启人，李健良，牧野留姬",
+		year: "2001",
+		genre: ["冒险", "热血", "奇幻", "成长"],
+		studio: "東映アニメーション",
+		link: "https://www.iqiyi.com/a_19rrhb1df9.html",
+		progress: 51,
+		totalEpisodes: 51,
+	},
+	{
+		title: "千と千尋の神隠し / 千与千寻",
+		status: "completed",
+		rating: 8.6,
+		cover: "assets/anime/千与千寻.webp",
+		description: "",
+		actor: "荻野千寻，白",
+		year: "2001",
+		genre: ["冒险", "环保", "成长", "治愈"],
+		studio: "Studio Ghibli",
+		link: "https://www.agedm.io/detail/20010001",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "顔のない月 / 无颜之月",
+		status: "completed",
+		rating: 7.1,
+		cover: "assets/anime/无颜之月.jpg",
+		description: "",
+		actor: "羽山浩一，仓木铃菜",
+		year: "2001",
+		genre: ["恋爱", "祭祀", "18R"],
+		studio: "root",
+		link: "",
+		progress: 5,
+		totalEpisodes: 5,
+	},
+	{
+		title: "遊☆戯☆王 デュエルモンスターズ",
+		status: "watching",
+		rating: 7.9,
+		cover: "assets/anime/游戏王·怪兽之决斗.jpg",
+		description: "",
+		actor: "武藤游戏，海马濑人，城之内克也",
+		year: "2000",
+		genre: ["卡牌", "竞技", "热血", "奇幻", "战斗"],
+		studio: "ぎゃろっぷ",
+		link: "https://www.bilibili.com/bangumi/play/ep79463",
+		progress: 0,
+		totalEpisodes: 224,
+	},
+	{
+		title: "数码宝贝",
+		status: "completed",
+		rating: 8.3,
+		cover: "assets/anime/数码宝贝.webp",
+		description: "",
+		actor: "八神太一，石田大和",
+		year: "1999",
+		genre: ["冒险", "热血", "奇幻", "成长"],
+		studio: "東映アニメーション",
+		link: "https://www.iqiyi.com/v_19rrok50fw.html",
+		progress: 54,
+		totalEpisodes: 54,
+	},
+	{
+		title: "魔卡少女樱",
+		status: "planned",
+		rating: 8.2,
+		cover: "assets/anime/魔卡少女樱.webp",
+		description: "",
+		actor: "木之本樱，李小狼",
+		year: "1998",
+		genre: ["校园", "恋爱", "奇幻", "战斗", "魔法"],
+		studio: "CLAMP",
+		link: "https://www.bilibili.com/bangumi/play/ss3756",
+		progress: 70,
+		totalEpisodes: 70,
+	},
+	{
+		title: "名侦探柯南",
+		status: "planned",
+		rating: 7.5,
+		cover: "assets/anime/名侦探柯南.jpeg",
+		description: "",
+		actor: "江户川柯南，灰原哀，毛利兰",
+		year: "1996",
+		genre: ["悬疑", "推理", "犯罪"],
+		studio: "TMS",
+		link: "https://www.bilibili.com/bangumi/play/ep321808",
+		progress: 0,
+		totalEpisodes: 1237,
+	},
+	{
+		title: "魔動王グランゾート / 魔动王",
+		status: "planned",
+		rating: 7.2,
+		cover: "assets/anime/魔动王.jpg",
+		description: "",
+		actor: "遥大地，山本加斯，拉比",
+		year: "1989",
+		genre: ["冒险", "动作", "机甲", "战斗", "热血"],
+		studio: "SUNRISE",
+		link: "https://www.bilibili.com/bangumi/play/ss2397",
+		progress: 41,
+		totalEpisodes: 41,
+	},
+	{
+		title: "となりのトトロ / 龙猫",
+		status: "completed",
+		rating: 8.2,
+		cover: "assets/anime/龙猫.webp",
+		description: "",
+		actor: "草壁梅，草壁五月，トトロ",
+		year: "1988",
+		genre: ["冒险", "环保", "成长", "温馨", "治愈"],
+		studio: "Studio Ghibli",
+		link: "https://www.agedm.io/detail/20000056",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+	{
+		title: "ドラゴンボール / 龙珠",
+		status: "planned",
+		rating: 8.2,
+		cover: "assets/anime/龙珠.jpeg",
+		description: "",
+		actor: "孙悟空，布尔玛",
+		year: "1986",
+		genre: ["冒险", "动作", "战斗", "热血", "奇幻", "搞笑", "成长"],
+		studio: "東映アニメーション",
+		link: "https://www.agedm.io/detail/20000070",
+		progress: 153,
+		totalEpisodes: 153,
+	},	
+	{
+		title: "天空の城ラピュタ / 天空之城",
+		status: "completed",
+		rating: 8.5,
+		cover: "assets/anime/天空之城.webp",
+		description: "",
+		actor: "希达，巴斯",
+		year: "1986",
+		genre: ["冒险", "环保", "科幻", "治愈"],
+		studio: "Studio Ghibli",
+		link: "https://www.iqiyi.com/v_1hl962cieqg.html",
+		progress: 1,
+		totalEpisodes: 1,
+	},
+];
+
+// 获取状态的翻译文本和样式
+function getStatusInfo(status: string) {
+	switch (status) {
+		case "watching":
+			return {
+				text: i18n(I18nKey.animeStatusWatching),
+				class:
+					"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+				icon: "▶",
+			};
+		case "completed":
+			return {
+				text: i18n(I18nKey.animeStatusCompleted),
+				class:
+					"bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+				icon: "✓",
+			};
+		case "planned":
+			return {
+				text: i18n(I18nKey.animeStatusPlanned),
+				class:
+					"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+				icon: "⏰",
+			};
+		default:
+			return {
+				text: status,
+				class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+				icon: "?",
+			};
+	}
+}
+
+// 计算统计数据
+const stats = {
+	total: animeList.length,
+	planned: animeList.filter((anime) => anime.status === "planned").length,
+	watching: animeList.filter((anime) => anime.status === "watching").length,
+	completed: animeList.filter((anime) => anime.status === "completed").length,
+	avgRating: (
+		animeList.reduce((sum, anime) => sum + anime.rating, 0) / animeList.length
+	).toFixed(1),
+};
+---
+
+<MainGridLayout title={i18n(I18nKey.anime)} description={i18n(I18nKey.animeSubtitle)}>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<!-- 页面标题 -->
+			<div class="relative w-full mb-8">
+				<div class="mb-6">
+					<h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2">{i18n(I18nKey.animeTitle)}</h1>
+					<p class="text-black/75 dark:text-white/75">{i18n(I18nKey.animeSubtitle)}</p>
+				</div>
+				
+				<!-- 统计卡片 -->
+				<div class="grid grid-cols-5 gap-4 mb-8">
+					<div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">📊</div>
+							<div>
+								<div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.total}</div>
+								<div class="text-sm text-blue-600/70 dark:text-blue-400/70">{i18n(I18nKey.animeTotal)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">⏰</div>
+							<div>
+								<div class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.planned}</div>
+								<div class="text-sm text-yellow-600/70 dark:text-yellow-400/70">{i18n(I18nKey.animePlanned)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">▶️</div>
+							<div>
+								<div class="text-2xl font-bold text-green-600 dark:text-green-400">{stats.watching}</div>
+								<div class="text-sm text-green-600/70 dark:text-green-400/70">{i18n(I18nKey.animeWatching)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">✅</div>
+							<div>
+								<div class="text-2xl font-bold text-purple-600 dark:text-purple-400">{stats.completed}</div>
+								<div class="text-sm text-purple-600/70 dark:text-purple-400/70">{i18n(I18nKey.animeCompleted)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">⭐</div>
+							<div>
+								<div class="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.avgRating}</div>
+								<div class="text-sm text-orange-600/70 dark:text-orange-400/70">{i18n(I18nKey.animeAvgRating)}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 动漫列表 -->
+			<div class="mb-8">
+				<h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4">
+					{i18n(I18nKey.animeList)}
+				</h2>
+				
+				<!-- 过滤按钮 - 参考Firefly设计 -->
+				<div class="mb-6">
+					<div class="filter-container flex flex-wrap gap-2">
+						<button class="filter-tag active" data-status="all">{i18n(I18nKey.animeFilterAll)}</button>
+						<button class="filter-tag" data-status="planned">{i18n(I18nKey.animeStatusPlanned)}</button>
+						<button class="filter-tag" data-status="watching">{i18n(I18nKey.animeStatusWatching)}</button>
+						<button class="filter-tag" data-status="completed">{i18n(I18nKey.animeStatusCompleted)}</button>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 md:gap-6">
+					{animeList.map(anime => {
+						const statusInfo = getStatusInfo(anime.status);
+						const progressPercent = (anime.progress / anime.totalEpisodes) * 100;
+						
+						return (
+							<div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={anime.status}>
+								<!-- 封面区域 - 竖屏比例 -->
+								<div class="relative aspect-[2/3] overflow-hidden">
+									{anime.link ? (
+										<a href={anime.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+											<ImageWrapper 
+												src={anime.cover} 
+												alt={anime.title}
+												class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+											/>
+											<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+												<div class="absolute inset-0 flex items-center justify-center">
+													<div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
+														<svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
+															<path d="M8 5v14l11-7z"/>
+														</svg>
+													</div>
+												</div>
+											</div>
+										</a>
+										) : (
+										<div class="block w-full h-full cursor-default">
+												<ImageWrapper 
+													src={anime.cover} 
+													alt={anime.title}
+													class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+												/>
+												<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+													<div class="absolute inset-0 flex items-center justify-center">
+														<div class="w-12 h-12 rounded-full bg-red-600/90 flex items-center justify-center">
+															<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+																<path d="M6 6h12v12H6z"/>
+															</svg>
+														</div>
+													</div>
+												</div>
+											</div>
+										)
+									}
+
+									<!-- 状态标签 -->
+									<div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`}>
+										<span class="mr-1">{statusInfo.icon}</span>
+										<span>{statusInfo.text}</span>
+									</div>
+									
+									<!-- 评分 -->
+									<div class="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs font-medium flex items-center gap-1">
+										<svg class="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+											<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+										</svg>
+										<span>{anime.rating.toFixed(1)}</span>
+									</div>
+									
+									<!-- 进度条 - 在封面底部 -->
+									{(anime.status === 'watching') && (
+										<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+											<div class="w-full bg-white/20 rounded-full h-1.5 mb-1">
+												<div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-1.5 rounded-full transition-all duration-300" style={`width: ${progressPercent}%`}></div>
+											</div>
+											<div class="text-white text-xs font-medium">
+												{anime.progress}/{anime.totalEpisodes} ({Math.round(progressPercent)}%)
+											</div>
+										</div>
+									)}
+								</div>
+								
+								<!-- 内容区域 - 紧凑设计 -->
+								<div class="p-3">
+									<h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{anime.title}</h3>
+									<p class="text-black/60 dark:text-white/60 text-xs mb-1 line-clamp-6">{anime.description}</p>
+									
+									<!-- 详细信息 - 更紧凑 -->
+									<div class="space-y-1 text-xs">
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeActor)}</span>
+											<span class="text-black/70 dark:text-white/70">{anime.actor}</span>
+										</div>
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeYear)}</span>
+											<span class="text-black/70 dark:text-white/70">{anime.year}</span>
+										</div>
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.animeStudio)}</span>
+											<span class="text-black/70 dark:text-white/70 truncate ml-2">{anime.studio}</span>
+										</div>
+										<div class="flex flex-wrap gap-1 mt-2">
+											{anime.genre.map(g => (
+												<span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 过滤按钮样式 -->
+	<style>
+	.filter-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.filter-tag {
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--line-divider);
+		border-radius: var(--radius-large);
+		background: var(--btn-regular-bg);
+		color: var(--btn-content);
+		font-size: 0.875rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		white-space: nowrap;
+	}
+
+	.filter-tag:hover:not(.active) {
+		background: var(--btn-hover-bg);
+		border-color: var(--primary);
+		transform: translateY(-1px);
+	}
+
+	.filter-tag.active {
+		background: var(--primary);
+		color: white;
+		border-color: var(--primary);
+	}
+
+	.filter-tag.active:hover {
+		background: var(--primary) !important;
+		color: white !important;
+		border-color: var(--primary) !important;
+		transform: translateY(-1px);
+	}
+
+	/* 隐藏动画 */
+	.anime-item {
+		transition: all 0.3s ease;
+	}
+
+	.anime-item.hidden {
+		opacity: 0;
+		transform: scale(0.95);
+		pointer-events: none;
+	}
+	</style>
+
+	<!-- 过滤功能脚本 -->
+	<script is:inline>
+	// 事件监听器存储，用于防止重复绑定
+	let filterEventListeners = [];
+
+	// 初始化过滤功能
+	function initFilterButtons() {
+		const filterTags = document.querySelectorAll('.filter-tag');
+		
+		// 移除之前的事件监听器
+		filterEventListeners.forEach(listener => {
+		const [element, type, handler] = listener;
+		element.removeEventListener(type, handler);
+		});
+		filterEventListeners = [];
+		
+		// 过滤功能
+		filterTags.forEach(tag => {
+		const clickHandler = function() {
+			// 移除所有active类
+			filterTags.forEach(t => t.classList.remove('active'));
+			// 添加active类到当前点击的标签
+			this.classList.add('active');
+			
+			const status = this.getAttribute('data-status');
+			
+			// 获取所有动漫项
+			const animeItems = document.querySelectorAll('[data-anime-status]');
+			
+			// 过滤动漫项
+			animeItems.forEach(item => {
+			if (status === 'all') {
+				item.classList.remove('hidden');
+			} else {
+				const itemStatus = item.getAttribute('data-anime-status');
+				if (itemStatus === status) {
+				item.classList.remove('hidden');
+				} else {
+				item.classList.add('hidden');
+				}
+			}
+			});
+		};
+		
+		tag.addEventListener('click', clickHandler);
+		filterEventListeners.push([tag, 'click', clickHandler]);
+		});
+		
+		console.log('Filter buttons initialized with', filterTags.length, 'buttons');
+	}
+		
+	// 页面加载时初始化
+	document.addEventListener('DOMContentLoaded', initFilterButtons);
+
+	// Swup页面切换后重新初始化
+	function setupSwupListeners() {
+		if (window.swup) {
+		// 使用Swup hooks监听页面切换事件
+		window.swup.hooks.on('content:replace', function() {
+			console.log('Swup content replaced - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 150);
+		});
+		
+		window.swup.hooks.on('page:view', function() {
+			console.log('Swup page view - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 150);
+		});
+		
+		window.swup.hooks.on('animation:in:end', function() {
+			console.log('Swup animation ended - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 200);
+		});
+		}
+	}
+
+	// 初始化Swup监听器
+	if (typeof window !== 'undefined') {
+		if (window.swup) {
+		setupSwupListeners();
+		} else {
+		// 如果Swup尚未初始化，监听启用事件
+		document.addEventListener('swup:enable', function() {
+			console.log('Swup enabled - setting up listeners');
+			setupSwupListeners();
+		});
+		}
+	}
+	</script>
+
+</MainGridLayout>

@@ -1,0 +1,966 @@
+---
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+// 追番数据
+const gameList = [
+	{
+		title: "Hollow Knight: SilkSong / 空洞骑士：丝之歌",
+		status: "playing",
+		rating: 7.7,
+		cover: "assets/game/空洞骑士：丝之歌.jpg",
+		description: "",
+		actor: "大黄蜂",
+		year: "2025",
+		genre: ["角色扮演", "平台跳跃", "动作", "冒险", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong",
+	},
+	{
+		title: "Split Fiction / 双影奇境",
+		status: "planned",
+		rating: 8.3,
+		cover: "assets/game/双影奇境.jpg",
+		description: "",
+		actor: "Mio，Zoe",
+		year: "2025",
+		genre: ["角色扮演", "即时制", "冒险", "动作", "多人合作", "PC"],
+		link: "https://store.steampowered.com/app/2001120",
+	},
+	{
+		title: "真・三国无双 起源",
+		status: "completed",
+		rating: 7.8,
+		cover: "assets/game/真・三国无双 起源.jpg",
+		description: "",
+		actor: "紫鸾，朱和，白鸾",
+		year: "2025",
+		genre: ["角色扮演", "动作", "无双系列", "PC", "NS"],
+		link: "https://store.steampowered.com/app/2384580",
+	},
+	{
+		title: "最终幻想7 REBIRTH",
+		status: "planned",
+		rating: 7.5,
+		cover: "assets/game/最终幻想7 REBIRTH.jpg",
+		description: "",
+		actor: "克劳德，蒂法，爱丽丝，巴雷特，R.E.D",
+		year: "2024",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/2909400/FINAL_FANTASY_VII_REBIRTH",
+	},
+	{
+		title: "塞尔达传说 王国之泪",
+		status: "planned",
+		rating: 9.1,
+		cover: "assets/game/塞尔达传说·王国之泪.jpg",
+		description: "",
+		actor: "林克，塞尔达",
+		year: "2023",
+		genre: ["角色扮演", "即时制", "战略", "冒险", "解谜", "奇幻", "开放世界", "NS"],
+		link: "",
+	},
+	{
+		title: "Richman 11 / 大富翁11",
+		status: "completed",
+		rating: 4.9,
+		cover: "assets/game/大富翁11.jpg",
+		description: "",
+		actor: "乌咪，钱夫人，忍太郎等",
+		year: "2022",
+		genre: ["模拟经营", "回合制", "战略", "休闲", "PC", "NS"],
+		link: "https://store.steampowered.com/app/2074800/11",
+	},
+	{
+		title: "Teenage Mutant Ninja Turtles: Shredder's Revenge / 忍者神龟：施莱德的复仇",
+		status: "completed",
+		rating: 6.5,
+		cover: "assets/game/忍者神龟：施莱德的复仇.png",
+		description: "后续有DLC：“次元震撼”和“激进爬行动物”。",
+		actor: "莱昂纳多，米开朗基罗，多纳泰罗，拉斐尔",
+		year: "2022",
+		genre: ["角色扮演", "即时制", "动作", "多人合作", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1361510",
+	},
+	{
+		title: "游戏王 大师决斗",
+		status: "playing",
+		rating: 7.2,
+		cover: "assets/game/游戏王·大师决斗.jpg",
+		description: "",
+		actor: "/",
+		year: "2022",
+		genre: ["卡牌", "回合制", "战略", "对战", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1449850/YuGiOh_Master_Duel",
+	},
+	{
+		title: "仙剑奇侠传七",
+		status: "completed",
+		rating: 5.6,
+		cover: "assets/game/仙剑奇侠传七.jpg",
+		description: "后续有DLC：“人间如梦”。",
+		actor: "月清疏，修吾，白茉晴，桑游",
+		year: "2021",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1543030",
+	},
+	{
+		title: "最终幻想7 REMAKE INTERGRADE",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/game/最终幻想7 REMAKE.jpg",
+		description: "包含DLC：“尤菲的新篇章”。",
+		actor: "克劳德，蒂法，爱丽丝，巴雷特，R.E.D",
+		year: "2021",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1462040/FINAL_FANTASY_VII_REMAKE_INTERGRADE",
+	},
+	{
+		title: "胡闹厨房！全都好吃",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/game/胡闹厨房！全都好吃.png",
+		description: "包含：胡闹厨房1、胡闹厨房2和全部DLC。",
+		actor: "/",
+		year: "2021",
+		genre: ["模拟经营", "塔防", "休闲", "战略", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1243830",
+	},
+	{
+		title: "It Takes Two / 双人成行",
+		status: "planned",
+		rating: 8.2,
+		cover: "assets/game/双人成行.jpg",
+		description: "",
+		actor: "Cody，May",
+		year: "2021",
+		genre: ["角色扮演", "即时制", "冒险", "动作", "多人合作", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1426210",
+	},
+	{
+		title: "游戏王 决斗者遗产：链接进化",
+		status: "completed",
+		rating: 5.2,
+		cover: "assets/game/游戏王·决斗者遗产.jpg",
+		description: "",
+		actor: "/",
+		year: "2020",
+		genre: ["卡牌", "回合制", "战略", "对战", "PC", "NS"],
+		link: "https://store.steampowered.com/app/1150640/YuGiOh_Legacy_of_the_Duelist__Link_Evolution",
+	},
+	{
+		title: "新 超级马力欧兄弟U 豪华版",
+		status: "completed",
+		rating: 7.3,
+		cover: "assets/game/新·超级马力欧兄弟U·豪华版.jpg",
+		description: "",
+		actor: "马里奥，路易吉",
+		year: "2019",
+		genre: ["角色扮演", "平台跳跃", "冒险", "动作", "奇幻", "开放世界", "多人合作", "NS"],
+		link: "",
+	},
+	{
+		title: "真・三国无双6 猛将传 DX",
+		status: "completed",
+		rating: 7.2,
+		cover: "assets/game/真・三国无双6 猛将传 DX.jpg",
+		description: "",
+		actor: "/",
+		year: "2018",
+		genre: ["角色扮演", "动作", "无双系列", "多人合作", "PC"],
+		link: "https://store.steampowered.com/app/968790/6_with__DX",
+	},
+	{
+		title: "古剑奇谭三：梦付千秋星垂野",
+		status: "completed",
+		rating: 7.5,
+		cover: "assets/game/古剑奇谭三.jpg",
+		description: "",
+		actor: "北洛，云无月，岑缨",
+		year: "2018",
+		genre: ["角色扮演", "即时制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/994280/Gujian3",
+	},
+	{
+		title: "马里奥赛车8 豪华版",
+		status: "playing",
+		rating: 7.8,
+		cover: "assets/game/马里奥赛车8.jpg",
+		description: "后续有48条新增赛道。",
+		actor: "马里奥，路易吉",
+		year: "2017",
+		genre: ["体育", "对战", "赛车", "NS"],
+		link: "",
+	},
+	{
+		title: "超级马里奥：奥德赛",
+		status: "playing",
+		rating: 8.8,
+		cover: "assets/game/马里奥·奥德赛.jpg",
+		description: "",
+		actor: "马里奥，凯皮",
+		year: "2017",
+		genre: ["角色扮演", "平台跳跃", "冒险", "动作", "奇幻", "开放世界", "多人合作", "NS"],
+		link: "",
+	},
+	{
+		title: "塞尔达传说 荒野之息",
+		status: "planned",
+		rating: 9.3,
+		cover: "assets/game/塞尔达传说·荒野之息.jpg",
+		description: "",
+		actor: "林克，塞尔达",
+		year: "2017",
+		genre: ["角色扮演", "即时制", "战略", "冒险", "解谜", "奇幻", "开放世界", "NS"],
+		link: "",
+	},
+	{
+		title: "神舞幻想",
+		status: "completed",
+		rating: 5.6,
+		cover: "assets/game/神舞幻想.jpg",
+		description: "后续有DLC：“君子心”。",
+		actor: "飞星，望舒，云倾，岚湘，夕羽",
+		year: "2017",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/724970/_Faith_of_Danschant",
+	},
+	{
+		title: "Hollow Knight / 空洞骑士",
+		status: "completed",
+		rating: 8.4,
+		cover: "assets/game/空洞骑士.jpg",
+		description: "后续有DLC：“隐藏的梦”、“格林剧团”、“生命血”和“寻神者”。",
+		actor: "小骑士",
+		year: "2017",
+		genre: ["角色扮演", "平台跳跃", "动作", "冒险", "PC", "NS"],
+		link: "https://store.steampowered.com/app/367520/Hollow_Knight",
+	},
+	{
+		title: "阴阳师",
+		status: "playing",
+		rating: 5.8,
+		cover: "assets/game/阴阳师.png",
+		description: "",
+		actor: "晴明，神乐，源博雅，八百比丘尼",
+		year: "2016",
+		genre: ["角色扮演", "回合制", "收集", "养成", "对战", "和风", "手游"],
+		link: "https://yys.163.com/index.html",
+	},
+	{
+		title: "仙剑奇侠传六",
+		status: "completed",
+		rating: 4.9,
+		cover: "assets/game/仙剑奇侠传六.jpg",
+		description: "",
+		actor: "越今朝，越祈，洛昭言，闲卿，明绣，居十方",
+		year: "2015",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/696360",
+	},
+	{
+		title: "英雄无敌3高清版",
+		status: "completed",
+		rating: 7.1,
+		cover: "assets/game/英雄无敌3高清版.jpg",
+		description: "仅有本传内容：“埃拉西亚的光复”，不包含DLC。",
+		actor: "凯瑟琳",
+		year: "2015",
+		genre: ["角色扮演", "回合制", "战略", "奇幻", "战争", "PC"],
+		link: "https://store.steampowered.com/app/297000/Heroes_of_Might__Magic_III__HD_Edition",
+	},
+	{
+		title: "古剑奇谭二：永夜初晗凝碧天",
+		status: "completed",
+		rating: 7.1,
+		cover: "assets/game/古剑奇谭二.jpg",
+		description: "后续有DLC：“沧海月明”，“潜龙在渊”和“霜刃初开”。",
+		actor: "乐无异，闻人羽，夏夷则，阿阮",
+		year: "2013",
+		genre: ["角色扮演", "即时制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/570770/GuJian2",
+	},
+	{
+		title: "Plants Vs. Zombies 2 / 植物大战僵尸2",
+		status: "completed",
+		rating: 5.4,
+		cover: "assets/game/植物大战僵尸2.jpg",
+		description: "",
+		actor: "疯狂的戴夫",
+		year: "2013",
+		genre: ["模拟经营", "塔防", "休闲", "战略", "手游"],
+		link: "",
+	},
+	{
+		title: "仙剑奇侠传五前传",
+		status: "completed",
+		rating: 7.5,
+		cover: "assets/game/仙剑奇侠传五前传.jpeg",
+		description: "后续有DLC：“梦华幻斗”。",
+		actor: "夏侯瑾轩，瑕，暮菖兰，谢沧行，姜承，皇甫卓",
+		year: "2013",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1545290",
+	},
+	{
+		title: "风卷残云",
+		status: "completed",
+		rating: 6.9,
+		cover: "assets/game/风卷残云.jpg",
+		description: "后续有DLC：“江湖传奇”。",
+		actor: "罗劲",
+		year: "2012",
+		genre: ["角色扮演", "动作", "多人合作", "PC"],
+		link: "https://store.steampowered.com/app/212030/Kung_Fu_Strike__The_Warriors_Rise",
+	},
+	{
+		title: "仙剑奇侠传五",
+		status: "completed",
+		rating: 5.2,
+		cover: "assets/game/仙剑奇侠传五.jpeg",
+		description: "后续有DLC：“魔灵幻像”，“暮雨今夕”，“前尘若梦”。",
+		actor: "姜云凡，唐雨柔，龙幽，小蛮",
+		year: "2011",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1569930",
+	},
+	{
+		title: "古剑奇谭：琴心剑魄今何在",
+		status: "completed",
+		rating: 7.8,
+		cover: "assets/game/古剑奇谭.jpg",
+		description: "后续有DLC：“千古剑灵”，“天墉旧事”，“彼岸浮灯”，“醉梦江湖”和“桃花幻梦”。",
+		actor: "百里屠苏，风晴雪，襄铃，方兰生，红玉，尹千觞",
+		year: "2010",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/570780/GuJian",
+	},
+	{
+		title: "Plants Vs. Zombies / 植物大战僵尸",
+		status: "completed",
+		rating: 8.2,
+		cover: "assets/game/植物大战僵尸.jpg",
+		description: "",
+		actor: "疯狂的戴夫",
+		year: "2009",
+		genre: ["模拟经营", "塔防", "休闲", "战略", "PC"],
+		link: "",
+	},
+	{
+		title: "Red Alert 3 Uprising / 红色警戒3 起义",
+		status: "completed",
+		rating: 6.8,
+		cover: "assets/game/红色警戒3·起义.jpg",
+		description: "",
+		actor: "谭雅，娜塔莎，百合子",
+		year: "2009",
+		genre: ["即时战略", "奇幻", "战争", "PC"],
+		link: "https://store.steampowered.com/app/24800/_3",
+	},
+	{
+		title: "Red Alert 3 / 红色警戒3",
+		status: "completed",
+		rating: 6.8,
+		cover: "assets/game/红色警戒3.jpeg",
+		description: "",
+		actor: "谭雅，娜塔莎，百合子",
+		year: "2008",
+		genre: ["即时战略", "奇幻", "战争", "PC"],
+		link: "https://store.steampowered.com/app/17480/_3",
+	},
+	{
+		title: "真・三国无双5",
+		status: "completed",
+		rating: 6.7,
+		cover: "assets/game/真・三国无双5.jpg",
+		description: "",
+		actor: "/",
+		year: "2007",
+		genre: ["角色扮演", "动作", "无双系列", "多人合作", "PC"],
+		link: "",
+	},
+	{
+		title: "仙剑奇侠传四",
+		status: "completed",
+		rating: 8.0,
+		cover: "assets/game/仙剑奇侠传四.jpeg",
+		description: "",
+		actor: "云天河，韩菱纱，柳梦璃，慕容紫英",
+		year: "2007",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1621680",
+	},
+	{
+		title: "仙剑奇侠传三外传·问情篇",
+		status: "completed",
+		rating: 7.0,
+		cover: "assets/game/仙剑奇侠传三外传.jpg",
+		description: "",
+		actor: "南宫煌，温慧，王蓬絮，星璇，雷元戈",
+		year: "2004",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1536080",
+	},
+	{
+		title: "CLANNAD",
+		status: "completed",
+		rating: 8.9,
+		cover: "assets/game/CLANNAD.jpg",
+		description: "",
+		actor: "冈崎朋也，古河渚，藤林杏，坂上智代，一之濑琴美",
+		year: "2004",
+		genre: ["角色扮演", "视觉小说", "恋爱", "PC", "NS"],
+		link: "https://store.steampowered.com/app/324160/CLANNAD",
+	},
+	{
+		title: "仙剑奇侠传三",
+		status: "completed",
+		rating: 7.8,
+		cover: "assets/game/仙剑奇侠传三.jpg",
+		description: "",
+		actor: "景天，雪见，龙葵，紫萱，徐长卿",
+		year: "2003",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1536070",
+	},
+	{
+		title: "仙剑奇侠传二",
+		status: "completed",
+		rating: 6.0,
+		cover: "assets/game/仙剑奇侠传二.jpg",
+		description: "",
+		actor: "王小虎，沈欺霜，苏媚，李忆如",
+		year: "2003",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1538460",
+	},
+	{
+		title: "决战坦克",
+		status: "completed",
+		rating: 7.2,
+		cover: "assets/game/决战坦克.jpg",
+		description: "",
+		actor: "/",
+		year: "2003",
+		genre: ["平面射击", "多人合作", "PC"],
+		link: "",
+	},
+	{
+		title: "天龙八部",
+		status: "completed",
+		rating: 7.4,
+		cover: "assets/game/天龙八部.jpeg",
+		description: "",
+		actor: "雷震，淘儿，默娘",
+		year: "2002",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "",
+	},
+	{
+		title: "Richman 6 / 大富翁 6",
+		status: "completed",
+		rating: 7.0,
+		cover: "assets/game/大富翁6.jpg",
+		description: "",
+		actor: "乌咪，钱夫人，阿土伯等",
+		year: "2002",
+		genre: ["模拟经营", "回合制", "即时制", "战略", "休闲", "PC"],
+		link: "https://store.steampowered.com/app/2185840/6",
+	},
+	{
+		title: "幽城幻剑录",
+		status: "completed",
+		rating: 8.7,
+		cover: "assets/game/幽城幻剑录.jpg",
+		description: "",
+		actor: "夏侯仪，冰璃，封铃笙，慕容璇玑，古伦德",
+		year: "2001",
+		genre: ["角色扮演", "半即时制", "冒险", "奇幻", "恋爱", "PC"],
+		link: "",
+	},
+	{
+		title: "Red Alert 2: Yuri's Revenge/ 红色警戒2：尤里的复仇",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/game/红色警戒2·尤里的复仇.jpg",
+		description: "",
+		actor: "谭雅，菁英战斗兵，尤里X",
+		year: "2001",
+		genre: ["即时战略", "奇幻", "战争", "对战", "PC"],
+		link: "",
+	},
+	{
+		title: "武林群侠传",
+		status: "planned",
+		rating: 8.1,
+		cover: "assets/game/武林群侠传.png",
+		description: "",
+		actor: "东方未明",
+		year: "2001",
+		genre: ["角色扮演", "回合制", "战略", "冒险", "PC"],
+		link: "",
+	},
+	{
+		title: "Red Alert 2 / 红色警戒2",
+		status: "completed",
+		rating: 8.0,
+		cover: "assets/game/红色警戒2.jpg",
+		description: "",
+		actor: "谭雅，菁英战斗兵",
+		year: "2000",
+		genre: ["即时战略", "奇幻", "战争", "对战", "PC"],
+		link: "",
+	},
+	{
+		title: "英雄无敌3",
+		status: "planned",
+		rating: 8.6,
+		cover: "assets/game/英雄无敌3死亡阴影.jpg",
+		description: "本传为：“埃拉西亚的光复”，后续有DLC：“末日之刃”和“死亡阴影”。",
+		actor: "凯瑟琳",
+		year: "1999",
+		genre: ["角色扮演", "回合制", "战略", "奇幻", "战争", "PC"],
+		link: "",
+	},
+	{
+		title: "破碎虚空",
+		status: "completed",
+		rating: 5.0,
+		cover: "assets/game/破碎虚空.png",
+		description: "",
+		actor: "传鹰，白莲珏，高典静",
+		year: "1999",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "",
+	},
+	{
+		title: "无人岛物语 4",
+		status: "completed",
+		rating: 7.0,
+		cover: "assets/game/无人岛物语4.jpeg",
+		description: "",
+		actor: "阿彻，铃音，理香，纱织，小柳绘里奈，高持慎一郎",
+		year: "1998",
+		genre: ["角色扮演", "冒险", "生存", "PC"],
+		link: "",
+	},
+	{
+		title: "Richman 4 / 大富翁 4",
+		status: "completed",
+		rating: 7.9,
+		cover: "assets/game/大富翁4.png",
+		description: "后续有DLC：“超时空之旅”。",
+		actor: "乌咪，钱夫人，忍太郎等",
+		year: "1998",
+		genre: ["模拟经营", "回合制", "战略", "休闲", "PC"],
+		link: "https://store.steampowered.com/app/2059810/4",
+	},
+	{
+		title: "Diablo / 暗黑破坏神",
+		status: "completed",
+		rating: 7.7,
+		cover: "assets/game/Diablo.jpeg",
+		description: "后续有DLC：“地狱火”。",
+		actor: "战士，浪人，法师",
+		year: "1996",
+		genre: ["即时策略", "冒险", "肉鸽", "PC"],
+		link: "",
+	},
+	{
+		title: "金庸群侠传",
+		status: "completed",
+		rating: 8.3,
+		cover: "assets/game/金庸群侠传.jpeg",
+		description: "",
+		actor: "小虾米",
+		year: "1996",
+		genre: ["角色扮演", "回合制", "战略", "冒险", "PC"],
+		link: "",
+	},
+	{
+		title: "仙剑奇侠传",
+		status: "completed",
+		rating: 8.6,
+		cover: "assets/game/仙剑奇侠传.jpg",
+		description: "有两个版本：“95版”和“98柔情版”，剧情内容完全一致，游戏体验略有区别。",
+		actor: "李逍遥，赵灵儿，林月如",
+		year: "1995",
+		genre: ["角色扮演", "回合制", "冒险", "恋爱", "PC"],
+		link: "https://store.steampowered.com/app/1546570",
+	},
+	{
+		title: "Tank Force / 坦克力量",
+		status: "completed",
+		rating: 7.3,
+		cover: "assets/game/TankForce.jpeg",
+		description: "",
+		actor: "/",
+		year: "1991",
+		genre: ["平面射击", "多人合作", "街机", "NS"],
+		link: "",
+	},
+	{
+		title: "Battle City / 坦克大战",
+		status: "completed",
+		rating: 8.0,
+		cover: "assets/game/BattleCity.png",
+		description: "",
+		actor: "/",
+		year: "1985",
+		genre: ["平面射击", "多人合作", "FC"],
+		link: "",
+	},
+];
+
+// 获取状态的翻译文本和样式
+function getStatusInfo(status: string) {
+	switch (status) {
+		case "playing":
+			return {
+				text: i18n(I18nKey.gameStatusPlaying),
+				class:
+					"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
+				icon: "🎮",
+			};
+		case "completed":
+			return {
+				text: i18n(I18nKey.gameStatusCompleted),
+				class:
+					"bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+				icon: "🌸",
+			};
+		case "planned":
+			return {
+				text: i18n(I18nKey.gameStatusPlanned),
+				class:
+					"bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
+				icon: "⏰",
+			};
+		default:
+			return {
+				text: status,
+				class: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+				icon: "?",
+			};
+	}
+}
+
+// 计算统计数据
+const stats = {
+	total: gameList.length,
+	planned: gameList.filter((game) => game.status === "planned").length,
+	playing: gameList.filter((game) => game.status === "playing").length,
+	completed: gameList.filter((game) => game.status === "completed").length,
+	avgRating: (
+		gameList.reduce((sum, game) => sum + game.rating, 0) / gameList.length
+	).toFixed(1),
+};
+---
+
+<MainGridLayout title={i18n(I18nKey.game)} description={i18n(I18nKey.gameSubtitle)}>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full">
+			<!-- 页面标题 -->
+			<div class="relative w-full mb-8">
+				<div class="mb-6">
+					<h1 class="text-4xl font-bold text-black/90 dark:text-white/90 mb-2">{i18n(I18nKey.gameTitle)}</h1>
+					<p class="text-black/75 dark:text-white/75">{i18n(I18nKey.gameSubtitle)}</p>
+				</div>
+				
+				<!-- 统计卡片 -->
+				<div class="grid grid-cols-5 gap-4 mb-8">
+					<div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">📊</div>
+							<div>
+								<div class="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.total}</div>
+								<div class="text-sm text-blue-600/70 dark:text-blue-400/70">{i18n(I18nKey.gameTotal)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">⏰</div>
+							<div>
+								<div class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{stats.planned}</div>
+								<div class="text-sm text-yellow-600/70 dark:text-yellow-400/70">{i18n(I18nKey.gamePlanned)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">🎮</div>
+							<div>
+								<div class="text-2xl font-bold text-green-600 dark:text-green-400">{stats.playing}</div>
+								<div class="text-sm text-green-600/70 dark:text-green-400/70">{i18n(I18nKey.gamePlaying)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">🌸</div>
+							<div>
+								<div class="text-2xl font-bold text-purple-600 dark:text-purple-400">{stats.completed}</div>
+								<div class="text-sm text-purple-600/70 dark:text-purple-400/70">{i18n(I18nKey.gameCompleted)}</div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg p-4">
+						<div class="flex items-center gap-3">
+							<div class="text-2xl">⭐</div>
+							<div>
+								<div class="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.avgRating}</div>
+								<div class="text-sm text-orange-600/70 dark:text-orange-400/70">{i18n(I18nKey.gameAvgRating)}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 游戏列表 -->
+			<div class="mb-8">
+				<h2 class="text-2xl font-bold text-black/90 dark:text-white/90 mb-4">
+					{i18n(I18nKey.gameList)}
+				</h2>
+
+				<!-- 过滤按钮 - 参考Firefly设计 -->
+				<div class="mb-6">
+					<div class="filter-container flex flex-wrap gap-2">
+						<button class="filter-tag active" data-status="all">{i18n(I18nKey.gameFilterAll)}</button>
+						<button class="filter-tag" data-status="planned">{i18n(I18nKey.gameStatusPlanned)}</button>
+						<button class="filter-tag" data-status="playing">{i18n(I18nKey.gameStatusPlaying)}</button>
+						<button class="filter-tag" data-status="completed">{i18n(I18nKey.gameStatusCompleted)}</button>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-6">
+					{gameList.map(game => {
+						const statusInfo = getStatusInfo(game.status);
+						
+						return (
+							<div class="group relative bg-[var(--card-bg)] border border-[var(--line-divider)] rounded-[var(--radius-large)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]" data-anime-status={game.status}>
+								<!-- 封面区域 - 竖屏比例 -->
+								<div class="relative aspect-[4/3] overflow-hidden">
+									{game.link ? (
+										<a href={game.link} target="_blank" rel="noopener noreferrer" class="block w-full h-full">
+											<ImageWrapper 
+												src={game.cover} 
+												alt={game.title}
+												class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+											/>
+											<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+												<div class="absolute inset-0 flex items-center justify-center">
+													<div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
+														<svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
+															<path d="M8 5v14l11-7z"/>
+														</svg>
+													</div>
+												</div>
+											</div>
+										</a>
+										) : (
+										<div class="block w-full h-full cursor-default">
+												<ImageWrapper 
+													src={game.cover} 
+													alt={game.title}
+													class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+												/>
+												<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+													<div class="absolute inset-0 flex items-center justify-center">
+														<div class="w-12 h-12 rounded-full bg-red-600/90 flex items-center justify-center">
+															<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+																<path d="M6 6h12v12H6z"/>
+															</svg>
+														</div>
+													</div>
+												</div>
+											</div>
+										)
+									}
+								</div>
+
+								<!-- 状态标签 -->
+								{(game.status === 'playing' || game.status === 'planned') && (
+									<div class={`absolute top-2 left-2 px-2 py-1 rounded-md text-xs font-medium ${statusInfo.class}`}>
+										<span class="mr-1">{statusInfo.icon}</span>
+										<span>{statusInfo.text}</span>
+									</div>
+								)}
+
+								<!-- 内容区域 - 紧凑设计 -->
+								<div class="p-3">
+									<h3 class="text-sm font-bold text-black/90 dark:text-white/90 mb-1 line-clamp-2 leading-tight">{game.title}</h3>
+									<p class="text-black/60 dark:text-white/60 text-xs mb-1 line-clamp-6">{game.description}</p>
+									
+									<!-- 详细信息 - 更紧凑 -->
+									<div class="space-y-1 text-xs">
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gameActor)}</span>
+											<span class="text-black/70 dark:text-white/70">{game.actor}</span>
+										</div>
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gameYear)}</span>
+											<span class="text-black/70 dark:text-white/70">{game.year}</span>
+										</div>
+										<div class="flex justify-between">
+												<span class="text-black/50 dark:text-white/50">{i18n(I18nKey.gameRating)}</span>
+											<span class="text-black/70 dark:text-white/70">{game.rating.toFixed(1)}</span>
+										</div>
+										<div class="flex flex-wrap gap-1 mt-2">
+											{game.genre.map(g => (
+												<span class="px-1.5 py-0.5 bg-[var(--btn-regular-bg)] text-black/70 dark:text-white/70 rounded text-xs">{g}</span>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 过滤按钮样式 -->
+	<style>
+	.filter-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.filter-tag {
+		padding: 0.5rem 1rem;
+		border: 1px solid var(--line-divider);
+		border-radius: var(--radius-large);
+		background: var(--btn-regular-bg);
+		color: var(--btn-content);
+		font-size: 0.875rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		white-space: nowrap;
+	}
+
+	.filter-tag:hover:not(.active) {
+		background: var(--btn-hover-bg);
+		border-color: var(--primary);
+		transform: translateY(-1px);
+	}
+
+	.filter-tag.active {
+		background: var(--primary);
+		color: white;
+		border-color: var(--primary);
+	}
+
+	.filter-tag.active:hover {
+		background: var(--primary) !important;
+		color: white !important;
+		border-color: var(--primary) !important;
+		transform: translateY(-1px);
+	}
+
+	/* 隐藏动画 */
+	.anime-item {
+		transition: all 0.3s ease;
+	}
+
+	.anime-item.hidden {
+		opacity: 0;
+		transform: scale(0.95);
+		pointer-events: none;
+	}
+	</style>
+
+	<!-- 过滤功能脚本 -->
+	<script is:inline>
+	// 事件监听器存储，用于防止重复绑定
+	let filterEventListeners = [];
+
+	// 初始化过滤功能
+	function initFilterButtons() {
+		const filterTags = document.querySelectorAll('.filter-tag');
+		
+		// 移除之前的事件监听器
+		filterEventListeners.forEach(listener => {
+		const [element, type, handler] = listener;
+		element.removeEventListener(type, handler);
+		});
+		filterEventListeners = [];
+		
+		// 过滤功能
+		filterTags.forEach(tag => {
+		const clickHandler = function() {
+			// 移除所有active类
+			filterTags.forEach(t => t.classList.remove('active'));
+			// 添加active类到当前点击的标签
+			this.classList.add('active');
+			
+			const status = this.getAttribute('data-status');
+			
+			// 获取所有动漫项
+			const animeItems = document.querySelectorAll('[data-anime-status]');
+			
+			// 过滤动漫项
+			animeItems.forEach(item => {
+			if (status === 'all') {
+				item.classList.remove('hidden');
+			} else {
+				const itemStatus = item.getAttribute('data-anime-status');
+				if (itemStatus === status) {
+				item.classList.remove('hidden');
+				} else {
+				item.classList.add('hidden');
+				}
+			}
+			});
+		};
+		
+		tag.addEventListener('click', clickHandler);
+		filterEventListeners.push([tag, 'click', clickHandler]);
+		});
+		
+		console.log('Filter buttons initialized with', filterTags.length, 'buttons');
+	}
+		
+	// 页面加载时初始化
+	document.addEventListener('DOMContentLoaded', initFilterButtons);
+
+	// Swup页面切换后重新初始化
+	function setupSwupListeners() {
+		if (window.swup) {
+		// 使用Swup hooks监听页面切换事件
+		window.swup.hooks.on('content:replace', function() {
+			console.log('Swup content replaced - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 150);
+		});
+		
+		window.swup.hooks.on('page:view', function() {
+			console.log('Swup page view - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 150);
+		});
+		
+		window.swup.hooks.on('animation:in:end', function() {
+			console.log('Swup animation ended - reinitializing filter buttons');
+			setTimeout(initFilterButtons, 200);
+		});
+		}
+	}
+
+	// 初始化Swup监听器
+	if (typeof window !== 'undefined') {
+		if (window.swup) {
+		setupSwupListeners();
+		} else {
+		// 如果Swup尚未初始化，监听启用事件
+		document.addEventListener('swup:enable', function() {
+			console.log('Swup enabled - setting up listeners');
+			setupSwupListeners();
+		});
+		}
+	}
+	</script>
+
+</MainGridLayout>
