@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /_astro/
-
-Sitemap: https://shadowchencsd.github.io/sitemap-index.xml

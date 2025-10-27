@@ -1,1 +1,0 @@
-import"./config.uqQ-gCpj.js";import"./zh_TW.D5Fzx1cX.js";function u(o,t){const n=o.replace(/^\/|\/$/g,"").toLowerCase(),e=t.replace(/^\/|\/$/g,"").toLowerCase();return n===e}function r(...o){return o.join("/").replace(/\/+/g,"/")}function c(o){return a(`/posts/${o}/`)}function a(o){return r("","/shadowchenCSD.github.io/",o)}export{c as g,u as p,a as u};
