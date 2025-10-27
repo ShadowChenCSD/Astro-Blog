@@ -33,6 +33,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build project
+        run: npm run build
+      
       - name: Deploy to EdgeOne Pages
         run: npx edgeone pages deploy ./dist -n shadowchencsd -t ${{ secrets.EDGEONE_API_TOKEN }}
         env:
