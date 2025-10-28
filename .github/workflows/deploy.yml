@@ -34,25 +34,25 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  EdgeOne:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  # EdgeOne:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+  #     - name: Install pnpm
+  #       run: npm install -g pnpm
 
-      - name: Install dependencies
-        run: pnpm install
+  #     - name: Install dependencies
+  #       run: pnpm install
       
-      - name: Build project
-        run: pnpm build
+  #     - name: Build project
+  #       run: pnpm build
       
-      - name: Deploy to EdgeOne Pages
-        run: npx edgeone pages deploy ./dist -n shadowchencsd -t ${{ secrets.EDGEONE_API_TOKEN }}
-        env:
-          EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+  #     - name: Deploy to EdgeOne Pages
+  #       run: npx edgeone pages deploy ./dist -n shadowchencsd -t ${{ secrets.EDGEONE_API_TOKEN }}
+  #       env:
+  #         EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
