@@ -1,8 +1,8 @@
 ---
-title: Markdown书写说明
+title: Markdown书写说明：基础语法
 published: 2025-10-16
 description: 介绍撰写Markdown文档的基本语法规则。
-tags: [文章撰写]
+tags: [文章撰写, Markdown]
 category: 博客
 image: "/posts/markdown.png"
 ---
