@@ -2,8 +2,9 @@
 title: 博客个性化配置
 published: 2025-09-30
 description: 介绍博客的来源、启动和个性化配置过程。
-tags: [个性化配置]
+tags: [Astro框架博客, 个性化配置]
 category: 博客
+pinned: true
 draft: false
 image: "/posts/blog.jpg"
 ---
@@ -11,6 +12,8 @@ image: "/posts/blog.jpg"
 # 1. 来源
 
 ​		本博客自[**Mizuki**](https://github.com/matsuzaka-yuki/Mizuki)主题博客改造而来，原作者是[**松坂有希**](https://space.bilibili.com/701864046)；而Mizuki主题，又是从[**Fuwari**](https://github.com/saicaca/fuwari)主题博客改造而来，原作者是[**二叉树树**](https://space.bilibili.com/325903362)。
+
+​		这两个主题都是采用**Astro框架**进行构建。
 
 - **Mizuki主题**
 
@@ -150,7 +153,7 @@ pnpm install
 
 - **功能开关**：
 
-  - `banner模式`为`true`，启用**Banner壁纸**
+  - `banner模式`为`true`，启用**Banner壁纸轮播**
 
   - `banner模式`为`false`，启用**全屏壁纸**
 

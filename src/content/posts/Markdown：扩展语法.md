@@ -1,6 +1,6 @@
 ---
-title: Markdown书写说明：扩展语法
-published: 2025-10-18
+title: Markdown：扩展语法
+published: 2023-10-18
 description: 介绍撰写Markdown文档的扩展语法规则。
 image: "/posts/markdown.png"
 tags: [文章撰写, Markdown]
@@ -13,47 +13,47 @@ category: 博客
 
 ```
 :::note
-笔记：高亮需要关注的信息。
+需要关注的信息。
 :::
 
 :::tip
-提示：心得体会。
+心得体会。
 :::
 
 :::important
-核心：成功的关键举措。
+重要举措。
 :::
 
 :::warning
-警告：存在潜在风险，请立即关注
+存在潜在风险。
 :::
 
 :::caution
-告诫：行为可能会带来负面影响。
+行为可能会带来负面影响。
 :::
 ```
 
 :::note
-笔记：高亮需要关注的信息。
+需要关注的信息。
 :::
 
 :::tip
-提示：心得体会。
+心得体会。
 :::
 
 :::important
-核心：成功的关键举措。
+重要举措。
 :::
 
 :::warning
-警告：存在潜在风险，请立即关注
+存在潜在风险。
 :::
 
 :::caution
-告诫：行为可能会带来负面影响。
+行为可能会带来负面影响。
 :::
 
-- 可以**自定义标题**
+- 可以**自定义标题**，内容**支持使用markdown的基础标记**
 
 ```
 :::note[自定义标题]
@@ -77,7 +77,7 @@ category: 博客
 
 # 3. GitHub仓库卡片
 
-- 可以增加一个动态卡片，链接到Github仓库。
+- 可以增加**卡片**，直接链接到**Github仓库**。
 
 `::github{repo="ShadowChenCSD/shadowchenCSD.github.io"}`
 

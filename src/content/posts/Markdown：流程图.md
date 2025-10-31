@@ -1,6 +1,6 @@
 ---
-title: Markdown书写说明：流程图
-published: 2025-10-20
+title: Markdown：流程图
+published: 2023-10-20
 description: 介绍撰写Markdown文档的流程图使用方法。
 tags: [文章撰写, Markdown]
 category: 博客
